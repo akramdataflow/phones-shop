@@ -1,0 +1,25 @@
+{% load i18n %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="p-[15px] rounded-[5px] border-l-4 text-etBlack {% if message.tags == 'success' %}bg-green-500 border-green-600{% elif message.tags == 'error' %}bg-red-500 border-red-600{% elif message.tags == 'warning' %}bg-edyellow border-edyellow{% elif message.tags == 'info' %}bg-blue-500 border-blue-600{% else %}bg-gray-500 border-gray-600{% endif %}">
+        <p class="text-sm font-medium flex-1">
+            {% if message.tags == 'success' %}
+            <i class="fas fa-check-circle text-xl"></i>
+            {% elif message.tags == 'error' %}
+            <i class="fas fa-times-circle text-xl"></i>
+            {% elif message.tags == 'warning' %}
+            <i class="fas fa-exclamation-triangle text-xl"></i>
+            {% elif message.tags == 'info' %}
+            <i class="fas fa-info-circle text-xl"></i>
+            {% else %}
+            <i class="fas fa-bell text-xl"></i>
+            {% endif %}
+            {{ message|safe }}
+            <button type="button" class="float-right p-1 hover:bg-white/10 rounded-full transition-colors" onclick="this.parentElement.remove()">
+                <span class="sr-only">{% trans "Close" %}</span>
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </p>
+    </div>
+    {% endfor %}
+{% endif %}
