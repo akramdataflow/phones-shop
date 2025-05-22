@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools", "wheel", "uv"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mustafa"
+version = "0.0.1"
+description = "Learning Management System"
+authors = [{ name ="Tarek Kalaji", email = "tarek.it.eng@gmail.com" }]
+readme = "README.md"
+dependencies = [
+    "Django>=5.2,<5.3",
+    "django-autoslug",
+    "django-embed-video",
+    # API
+    "djangorestframework",
+    "djangorestframework_simplejwt",
+    "drf_yasg",
+    "django-cors-headers",
+    # Tasks
+    "celery[redis]",
+    # Database
+    "psycopg[c]",
+    "asyncpg",
+    # utils
+    "Pillow",
+    "python-dotenv",
+    "python-dateutil",
+    "requests",
+    "user-agents",
+    "moviepy",
+    # Deployment
+    "gunicorn",
+    "uvicorn",
+]
