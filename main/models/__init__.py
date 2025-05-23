@@ -1,7 +1,7 @@
-from .product import Product, ProductVariant
+from .product import Product, ProductVariant, ProductImage
 from .review import Review
 
 __all__ = [
-    'Product', 'ProductVariant', 
+    'Product', 'ProductVariant', 'ProductImage',
     'Review',
 ]

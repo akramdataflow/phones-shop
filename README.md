@@ -19,3 +19,14 @@ Card Number: 5213720304238582
 CVV: 642
 Exp: 01-2032 
 ```
+
+## Translation
+To make messages
+```
+django-admin makemessages -l ar
+django-admin makemessages -l en
+```
+Compile messages
+```
+django-admin compilemessages
+```

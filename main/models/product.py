@@ -1,20 +1,25 @@
 import decimal
+import os
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
 def image_upload(instance, filename):
-    ___, extension = filename.split('.')
-    return "product/%s.%s" % (instance.id, extension)
+    ___, extension = os.path.splitext(filename)
+    return f"products/{instance.product.id}/images/{instance.id}{extension}"
 
 
 class ProductManager(models.Manager):
     def get_queryset(self):
         return (
             super(ProductManager, self).get_queryset()
-            .select_related('category', 'brand', 'productvariant_set__size', 'productvariant_set__color')
-            .prefetch_related('productvariant_set')
+            .select_related(
+                'category', 'brand', 
+            )
+            .prefetch_related(
+                'productvariant_set', 'productimage_set',
+            )
         )
 
 class Product(models.Model):
@@ -38,11 +43,11 @@ class Product(models.Model):
     def get_total_price(self, size_id: int = None) -> decimal.Decimal:
         total_price = decimal.Decimal(self.price)  # type: ignore
         if size_id:
-            variant = self.productvariant_set.filter(size_id=size_id).first()
+            variant = self.productvariant_set.filter(size_id=size_id).first() # type: ignore
             if variant:
                 total_price += variant.get_total_price()
         else:
-            variant = self.productvariant_set.first()
+            variant = self.productvariant_set.first() # type: ignore
             if variant:
                 total_price += variant.get_total_price()
         return total_price
@@ -64,3 +69,23 @@ class ProductVariant(models.Model):
 
     def get_total_price(self):
         return self.price * self.quantity  # type: ignore
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to=image_upload,
+        verbose_name=_("Product Image")
+    )
+    order = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("Display Order")
+    )
+    
+    class Meta:
+        ordering = ['order']
+        verbose_name = _("Product Image")
+        verbose_name_plural = _("Product Images")
+
+    def __str__(self):
+        return f"Image for {self.product.name}"
