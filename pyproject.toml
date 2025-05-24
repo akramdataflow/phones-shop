@@ -24,11 +24,13 @@ dependencies = [
     "asyncpg",
     # utils
     "Pillow",
+    "easy-thumbnails==2.10",
     "python-dotenv",
     "python-dateutil",
     "requests",
     "user-agents",
     "moviepy",
+    "Faker",
     # Deployment
     "gunicorn",
     "uvicorn",

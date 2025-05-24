@@ -1,26 +1,28 @@
 {% load static %}
 {% if paginated_list.has_other_pages %}
-    <div class="flex items-center gap-[20px] pt-[60px] justify-center text-[16px]">
-        {% if paginated_list.has_previous %}
-            <a href="?page={{ paginated_list.previous_page_number }}" class="hover:text-edpurple"><i class="fa-solid fa-arrow-left-long"></i></a>
-        {% else %}
-            <span><i class="fa-solid fa-arrow-left-long text-[#d9d9d9]"></i></span>
-        {% endif %}
-        
-        <div class="ed-pagination flex gap-[10px] items-center">
-            {% for num in paginated_list.paginator.page_range %}
-                {% if paginated_list.number == num %}
-                    <a href="?page={{ num }}" class="border border-[#d9d9d9] rounded-full w-[50px] h-[50px] flex items-center justify-center text-etBlack hover:bg-edpurple hover:border-edpurple hover:text-white active">{{ num }}</a>
+    <div class="shop-pagination  text-center">
+        <div class="pagination">
+            <ul>
+                {% if paginated_list.has_previous %}
+                    <li><a href="?page={{ paginated_list.previous_page_number }}"><i class="zmdi zmdi-long-arrow-left"></i></a></li>
                 {% else %}
-                    <a href="?page={{ num }}" class="border border-[#d9d9d9] rounded-full w-[50px] h-[50px] flex items-center justify-center text-etBlack hover:bg-edpurple hover:border-edpurple hover:text-white">{{ num }}</a>
+                    <li><a href="#"><i class="zmdi zmdi-long-arrow-left text-[#d9d9d9]"></i></a></li>
                 {% endif %}
-            {% endfor %}
+                
+                {% for num in paginated_list.paginator.page_range %}
+                    {% if paginated_list.number == num %}
+                        <li><a class="active" href="?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li><a href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if paginated_list.has_next %}
+                    <li><a href="?page={{ paginated_list.next_page_number }}"><i class="zmdi zmdi-long-arrow-right"></i></a></li>
+                {% else %}
+                    <li><a href="#"><i class="zmdi zmdi-long-arrow-right text-[#d9d9d9]"></i></a></li>
+                {% endif %}
+            </ul>
         </div>
-        
-        {% if paginated_list.has_next %}
-            <a href="?page={{ paginated_list.next_page_number }}" class="hover:text-edpurple"><i class="fa-solid fa-arrow-right-long"></i></a>
-        {% else %}
-            <span><i class="fa-solid fa-arrow-right-long text-[#d9d9d9]"></i></span>
-        {% endif %}
     </div>
 {% endif %}

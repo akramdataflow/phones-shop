@@ -23,10 +23,9 @@ Exp: 01-2032
 ## Translation
 To make messages
 ```
-django-admin makemessages -l ar
-django-admin makemessages -l en
+python manage.py makemessages --all --ignore env
 ```
 Compile messages
 ```
-django-admin compilemessages
+python manage.py compilemessages --ignore env
 ```

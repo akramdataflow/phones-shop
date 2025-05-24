@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    'easy_thumbnails',
+
     'core',
     'main',
 ]
@@ -148,3 +150,9 @@ AUTHENTICATION_BACKENDS = [
     'main.backends.PhoneEmailUsernameBackend',
     # 'django.contrib.auth.backends.ModelBackend',
 ]
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'product': {'size': (270, 270), 'crop': True},
+    },
+}

@@ -1,0 +1,46 @@
+{% load static i18n humanize thumbnail %}
+<!-- Single-product start -->
+<div class="col-xl-3 col-md-4">
+    <div class="single-product">
+        <div class="product-img">
+            {% if product.label %}
+            <span class="pro-label new-label">{{ product.label }}</span>
+            {% endif %}
+            <span class="pro-price-2">
+                {% if product.price > 0.0 %}
+                {{ product.price|intcomma }} {{ product.currency.code }}
+                {% else %}
+                {% trans "Free" %}
+                {% endif %}
+            </span>
+            <a href="{% url 'product_details' product.slug %}">
+                {% if product.image %}
+                <img src="{{ product.image|thumbnail_url:'product' }}" alt="{{  product.name }}">
+                {% else %}
+                <img src="{% static 'assets/img/product/1.jpg' %}" alt="{{  product.name }}">
+                {% endif %}
+            </a>
+        </div>
+        <div class="product-info clearfix text-center">
+            <div class="fix">
+                <h4 class="post-title"><a href="{% url 'product_details' product.slug %}">{{ product.name }}</a></h4>
+            </div>
+            <div class="fix">
+                <span class="pro-rating">
+                    <a href="#"><i class="zmdi zmdi-star"></i></a>
+                    <a href="#"><i class="zmdi zmdi-star"></i></a>
+                    <a href="#"><i class="zmdi zmdi-star"></i></a>
+                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
+                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
+                </span>
+            </div>
+            <!-- <div class="product-action clearfix">
+                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
+                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
+                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+            </div> -->
+        </div>
+    </div>
+</div>
+<!-- Single-product end -->

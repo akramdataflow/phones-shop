@@ -17,8 +17,8 @@ class Profile(models.Model):
         verbose_name_plural = 'Profiles'
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, unique=True)
-    slug = AutoSlugField(populate_from='name', unique=True)
+    name = models.CharField(max_length=200)
+    slug = AutoSlugField(populate_from='name', unique=True)  # type: ignore
     email = models.EmailField(max_length=254)
     bio = models.TextField(blank=True)
     image = models.ImageField(upload_to=file_upload, blank=True, null=True)

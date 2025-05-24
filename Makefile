@@ -54,6 +54,12 @@ generate_dot_env:
 		cp sample.env .env; \
 	fi
 
+make_messages:
+	PYTHONPATH=. python manage.py makemessages --all --ignore env
+
+compile_messages:
+	PYTHONPATH=. python manage.py compilemessages --ignore env
+
 make_migrations:
 	PYTHONPATH=. python manage.py makemigrations
 

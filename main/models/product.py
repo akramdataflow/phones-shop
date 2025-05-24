@@ -3,6 +3,7 @@ import os
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from autoslug.fields import AutoSlugField
 
 
 def image_upload(instance, filename):
@@ -27,13 +28,26 @@ class Product(models.Model):
     class Meta:
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
+    
+    LABELS = (
+        ("new", _("New")),
+        ("hot", _("Hot")),
+        ("sale", _("Sale")),
+        ("top", _("Top")),
+        ("popular", _("Popular")),
+        ("out-of-stock", _("Out of Stock")),
+    )
 
     name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name', unique=True)  # type: ignore
+    label = models.CharField(max_length=255, choices=LABELS, null=True, blank=True)
     image = models.ImageField(upload_to=image_upload, null=True, blank=True)
     brand = models.ForeignKey("core.Brand", on_delete=models.CASCADE)
     category = models.ForeignKey("core.Category", on_delete=models.CASCADE)
+    currency = models.ForeignKey("core.Currency", on_delete=models.CASCADE, default=2)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    is_featured = models.BooleanField(default=False)
     has_size = models.BooleanField(verbose_name=_("Product has Size"), default=False)
     has_color = models.BooleanField(verbose_name=_("Product has Color"), default=False)
 

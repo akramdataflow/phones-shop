@@ -3,8 +3,8 @@ from django.shortcuts import render
 from main.models import Product
 
 def home(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(is_featured=True)
     context = {
-        'products': products,
+        'featured_products': products,
     }
     return render(request, 'home.html', context)

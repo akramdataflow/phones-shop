@@ -2,6 +2,7 @@ from . import admin_site
 from . import brand
 from . import category
 from . import color
+from . import profile
 from . import size
 
 
@@ -10,5 +11,6 @@ __all__ = [
     'brand',
     'category',
     'color',
+    'profile',
     'size',
 ]

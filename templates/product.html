@@ -4,7 +4,196 @@
 {% block extra_css %}
 {% endblock extra_css %}
 {% block body %}
-
+<div class="heading-banner-area overlay-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>{% trans "Shop" %}</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                            <li>{% trans 'Shop' %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-area pt-80 pb-80 product-style-2">
+    <div class="container">
+        <!-- Shop-Content End -->
+        <div class="shop-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="product-option mb-30 clearfix">
+                        <!-- Categories start -->
+                        <div class="dropdown floatleft">
+                            <button class="option-btn">
+                            Categories
+                            </button>
+                            <div class="dropdown-menu dropdown-width">
+                                <!-- Widget-Categories start -->
+                                <aside class="widget widget-categories">
+                                    <div class="widget-title">
+                                        <h4>Categories</h4>
+                                    </div>
+                                    <div id="cat-treeview" class="widget-info product-cat boxscrol2" style="overflow: hidden; outline: none;" tabindex="4">
+                                        <ul class="treeview">
+                                            <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>Chair</span>
+                                                <ul class="treeview" style="display: none;">
+                                                    <li><a href="#">T-Shirts</a></li>
+                                                    <li><a href="#">Striped Shirts</a></li>
+                                                    <li><a href="#">Half Shirts</a></li>
+                                                    <li><a href="#">Formal Shirts</a></li>
+                                                    <li class="last"><a href="#">Bilazers</a></li>
+                                                </ul>
+                                            </li>          
+                                            <li class="open expandable"><div class="hitarea open-hitarea expandable-hitarea"></div><span>Furniture</span>
+                                                <ul class="treeview">
+                                                    <li><a href="#">Men Bag</a></li>
+                                                    <li><a href="#">Shoes</a></li>
+                                                    <li><a href="#">Watch</a></li>
+                                                    <li><a href="#">T-shirt</a></li>
+                                                    <li class="last"><a href="#">Shirt</a></li>
+                                                </ul>
+                                            </li>          
+                                            <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>Accessories</span>
+                                                <ul class="treeview" style="display: none;">
+                                                    <li><a href="#">T-Shirts</a></li>
+                                                    <li><a href="#">Striped Shirts</a></li>
+                                                    <li><a href="#">Half Shirts</a></li>
+                                                    <li><a href="#">Formal Shirts</a></li>
+                                                    <li class="last"><a href="#">Bilazers</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>Top Brands</span>
+                                                <ul class="treeview" style="display: none;">
+                                                    <li><a href="#">T-Shirts</a></li>
+                                                    <li><a href="#">Striped Shirts</a></li>
+                                                    <li><a href="#">Half Shirts</a></li>
+                                                    <li><a href="#">Formal Shirts</a></li>
+                                                    <li class="last"><a href="#">Bilazers</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="expandable lastExpandable"><div class="hitarea expandable-hitarea lastExpandable-hitarea"></div><span>Jewelry</span>
+                                                <ul class="treeview" style="display: none;">
+                                                    <li><a href="#">T-Shirts</a></li>
+                                                    <li><a href="#">Striped Shirts</a></li>
+                                                    <li><a href="#">Half Shirts</a></li>
+                                                    <li><a href="#">Formal Shirts</a></li>
+                                                    <li class="last"><a href="#">Bilazers</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </aside>
+                                <!-- Widget-categories end -->
+                            <div id="ascrail2004" class="nicescroll-rails nicescroll-rails-vr" style="width: 6px; z-index: 1000; cursor: default; position: absolute; top: 0px; left: -6px; height: 290px; display: none;"><div style="position: relative; top: 0px; float: right; width: 6px; height: 0px; background-color: rgb(200, 112, 101); border: 0px; background-clip: padding-box; border-radius: 5px;" class="nicescroll-cursors"></div></div><div style="cursor: pointer; z-index: 1000; background-image: none; height: 18px; width: 18px; background-position: 0px 0px; position: absolute; top: 1px; left: -26px;"></div><div id="ascrail2004-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 6px; z-index: 1000; top: 284px; left: 0px; position: absolute; cursor: default; display: none;"><div style="position: absolute; top: 0px; height: 6px; width: 0px; background-color: rgb(200, 112, 101); border: 0px; background-clip: padding-box; border-radius: 5px;" class="nicescroll-cursors"></div></div></div>
+                        </div>	
+                        <!-- Categories end -->
+                        <!-- Price start -->
+                        <div class="dropdown floatleft">
+                            <button class="option-btn">
+                            Price
+                            </button>
+                            <div class="dropdown-menu dropdown-width">
+                                <!-- Shop-Filter start -->
+                                <aside class="widget shop-filter">
+                                    <div class="widget-title">
+                                        <h4>Price</h4>
+                                    </div>
+                                    <div class="widget-info">
+                                        <div class="price_filter">
+                                            <div class="price_slider_amount">
+                                                <input type="submit" value="You range :"> 
+                                                <input type="text" id="amount" name="price" placeholder="Add Your Price"> 
+                                            </div>
+                                            <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 48.6667%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 48.6667%;"></span></div>
+                                        </div>
+                                    </div>
+                                </aside>
+                                <!-- Shop-Filter end -->
+                            </div>
+                        </div>	
+                        <!-- Price end -->
+                        <!-- Color start -->
+                        <div class="dropdown floatleft">
+                            <button class="option-btn">
+                            Color
+                            </button>
+                            <div class="dropdown-menu dropdown-width">
+                                <!-- Widget-Color start -->
+                                <aside class="widget widget-color">
+                                    <div class="widget-title">
+                                        <h4>Color</h4>
+                                    </div>
+                                    <div class="widget-info color-filter clearfix">
+                                        <ul>
+                                            <li><a href="#"><span class="color color-1"></span>LightSalmon<span class="count">12</span></a></li>
+                                            <li><a href="#"><span class="color color-2"></span>Dark Salmon<span class="count">20</span></a></li>
+                                            <li><a href="#"><span class="color color-3"></span>Tomato<span class="count">59</span></a></li>
+                                            <li><a class="active" href="#"><span class="color color-4"></span>Deep Sky Blue<span class="count">45</span></a></li>
+                                            <li><a href="#"><span class="color color-5"></span>Electric Purple<span class="count">78</span></a></li>
+                                            <li><a href="#"><span class="color color-6"></span>Atlantis<span class="count">10</span></a></li>
+                                            <li><a href="#"><span class="color color-7"></span>Deep Lilac<span class="count">15</span></a></li>
+                                        </ul>
+                                    </div>
+                                </aside>
+                                <!-- Widget-Color end -->
+                            </div>
+                        </div>
+                        <!-- Color end -->
+                        <!-- Size start -->
+                        <div class="dropdown floatleft">
+                            <button class="option-btn">
+                            Size
+                            </button>
+                            <div class="dropdown-menu dropdown-width">
+                                <!-- Widget-Size start -->
+                                <aside class="widget widget-size">
+                                    <div class="widget-title">
+                                        <h4>Size</h4>
+                                    </div>
+                                    <div class="widget-info size-filter clearfix">
+                                        <ul>
+                                            <li><a href="#">M</a></li>
+                                            <li><a class="active" href="#">S</a></li>
+                                            <li><a href="#">L</a></li>
+                                            <li><a href="#">SL</a></li>
+                                            <li><a href="#">XL</a></li>
+                                        </ul>
+                                    </div>
+                                </aside>
+                                <!-- Widget-Size end -->
+                            </div>
+                        </div>	
+                        <!-- Size end -->								
+                        <div class="showing text-end">
+                            <p class="mb-0 d-none d-md-block">{{ product_count|intcomma }} {% trans "products found" %}</p>
+                        </div>
+                    </div>						
+                </div>	
+                <div class="col-md-12">
+                    <div class="row">
+                        {% for product in products %}
+                        {% include 'includes/product_single.html' with product=product %}
+                        {% empty %}
+                        <p class="text-center">{% trans "No products found" %}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    {% include 'includes/pagination.html' with paginated_list=products %}
+                </div>
+            </div>
+        </div>
+        <!-- Shop-Content End -->
+    </div>
+</div>
 {% endblock body %}
 {% block extra_js %}
 {% endblock extra_js %}
