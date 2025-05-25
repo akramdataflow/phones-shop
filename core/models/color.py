@@ -1,12 +1,13 @@
 import csv
 
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 
 class Color(models.Model):
     class Meta:
-        verbose_name = "Color"
-        verbose_name_plural = "Colors"
+        verbose_name = _("Color")
+        verbose_name_plural = _("Colors")
         ordering = ["number"]
     name = models.CharField(max_length=100)  # Color name (e.g., "Red")
     number = models.CharField(max_length=100)  # Color number, can be used for a color code

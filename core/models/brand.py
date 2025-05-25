@@ -1,11 +1,12 @@
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 from autoslug import AutoSlugField
 
 
 class Brand(models.Model):
     class Meta:
-        verbose_name = 'Brand'
-        verbose_name_plural = 'Brands'
+        verbose_name = _('Brand')
+        verbose_name_plural = _('Brands')
 
     name = models.CharField(max_length=100, unique=True)
     slug = AutoSlugField(populate_from='name', unique=True)

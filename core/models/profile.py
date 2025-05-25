@@ -1,5 +1,6 @@
 import uuid
 
+from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django.conf import settings
 
@@ -13,8 +14,8 @@ def file_upload(instance, filename):
 
 class Profile(models.Model):
     class Meta:
-        verbose_name = 'Profile'
-        verbose_name_plural = 'Profiles'
+        verbose_name = _('Profile')
+        verbose_name_plural = _('Profiles')
 
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static i18n humanize %}
+{% load static i18n humanize thumbnail %}
 {% block title %}{{ product.name }}{% endblock title %}
 {% block extra_css %}
 {% endblock extra_css %}
@@ -32,42 +32,27 @@
                 <div class="single-product clearfix">
                     <!-- Single-pro-slider Big-photo start -->
                     <div class="single-pro-slider single-big-photo view-lightbox slider-for">
+                        {% for image in product.productimage_set.all %}
                         <div>
-                            <img src="{% static 'assets/img/single-product/medium/1.jpg' %}" alt="" />
-                            <a class="view-full-screen" href="{% static 'assets/img/single-product/large/1.jpg' %}"  data-lightbox="roadtrip" data-title="My caption">
+                            <img src="{{ image.image|thumbnail_url:'product' }}" alt="" />
+                            <a class="view-full-screen" href="{{ image.image.url }}"  data-lightbox="roadtrip" data-title="{{ product.name }}">
                                 <i class="zmdi zmdi-zoom-in"></i>
                             </a>
                         </div>
+                        {% empty %}
                         <div>
-                            <img src="{% static 'assets/img/single-product/medium/2.jpg' %}" alt="" />
-                            <a class="view-full-screen" href="{% static 'assets/img/single-product/large/2.jpg' %}"  data-lightbox="roadtrip" data-title="My caption">
+                            <img src="{{ product.image|thumbnail_url:'product' }}" alt="" />
+                            <a class="view-full-screen" href="{{ product.image.url }}"  data-lightbox="roadtrip" data-title="{{ product.name }}">
                                 <i class="zmdi zmdi-zoom-in"></i>
                             </a>
                         </div>
-                        <div>
-                            <img src="{% static 'assets/img/single-product/medium/3.jpg' %}" alt="" />
-                            <a class="view-full-screen" href="{% static 'assets/img/single-product/large/3.jpg' %}"  data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <img src="{% static 'assets/img/single-product/medium/4.jpg' %}" alt="" />
-                            <a class="view-full-screen" href="{% static 'assets/img/single-product/large/4.jpg' %}"  data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        <div>
-                            <img src="{% static 'assets/img/single-product/medium/5.jpg' %}" alt="" />
-                            <a class="view-full-screen" href="{% static 'assets/img/single-product/large/5.jpg' %}"  data-lightbox="roadtrip" data-title="My caption">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
+                        {% endfor %}
                     </div>	
                     <!-- Single-pro-slider Big-photo end -->								
                     <div class="product-info">
                         <div class="fix">
-                            <h4 class="post-title floatleft">{{ product.name }}</h4>
-                            <span class="pro-rating floatright">
+                            <h4 class="post-title">{{ product.name }}</h4>
+                            <span class="pro-rating float-right">
                                 <a href="#"><i class="zmdi zmdi-star"></i></a>
                                 <a href="#"><i class="zmdi zmdi-star"></i></a>
                                 <a href="#"><i class="zmdi zmdi-star"></i></a>
@@ -88,10 +73,11 @@
                         <div class="product-description">
                             <p>{{ product.description }}</p>
                         </div>
+                        {% if product.has_color %}
                         <!-- color start -->								
                         <div class="color-filter single-pro-color mb-20 clearfix">
                             <ul>
-                                <li><span class="color-title text-capitalize">color</span></li>
+                                <li><span class="color-title text-capitalize">{% trans "Color" %}</span></li>
                                 <li><a class="active" href="#"><span class="color color-1"></span></a></li>
                                 <li><a href="#"><span class="color color-2"></span></a></li>
                                 <li><a href="#"><span class="color color-7"></span></a></li>
@@ -100,10 +86,12 @@
                             </ul>
                         </div>
                         <!-- color end -->
+                        {% endif %}
+                        {% if product.has_size %}
                         <!-- Size start -->
                         <div class="size-filter single-pro-size mb-35 clearfix">
                             <ul>
-                                <li><span class="color-title text-capitalize">size</span></li>
+                                <li><span class="color-title text-capitalize">{% trans "Size" %}</span></li>
                                 <li><a href="#">M</a></li>
                                 <li><a class="active" href="#">S</a></li>
                                 <li><a href="#">L</a></li>
@@ -112,6 +100,8 @@
                             </ul>
                         </div>
                         <!-- Size end -->
+                        {% endif %}
+                        {% comment %}
                         <div class="clearfix">
                             <div class="cart-plus-minus">
                                 <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
@@ -123,22 +113,23 @@
                                 <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                             </div>
                         </div>
+                        {% endcomment %}
                         <!-- Single-pro-slider Small-photo start -->
-                        <div class="single-pro-slider single-sml-photo slider-nav">
+                        <div class="single-pro-slider single-sml-photo slider-nav" dir="ltr">
                             <div>
-                                <img src="img/single-product/small/1.jpg" alt="" />
+                                <img src="{% static 'assets/img/single-product/small/1.jpg' %}" alt="" />
                             </div>
                             <div>
-                                <img src="img/single-product/small/2.jpg" alt="" />
+                                <img src="{% static 'assets/img/single-product/small/2.jpg' %}" alt="" />
                             </div>
                             <div>
-                                <img src="img/single-product/small/3.jpg" alt="" />
+                                <img src="{% static 'assets/img/single-product/small/3.jpg' %}" alt="" />
                             </div>
                             <div>
-                                <img src="img/single-product/small/4.jpg" alt="" />
+                                <img src="{% static 'assets/img/single-product/small/4.jpg' %}" alt="" />
                             </div>
                             <div>
-                                <img src="img/single-product/small/5.jpg" alt="" />
+                                <img src="{% static 'assets/img/single-product/small/5.jpg' %}" alt="" />
                             </div>
                         </div>
                         <!-- Single-pro-slider Small-photo end -->
@@ -154,28 +145,28 @@
                     <div class="single-pro-tab-menu">
                         <!-- Nav tabs -->
                         <ul class="nav d-block">
-                            <li><a href="#description" data-bs-toggle="tab">Description</a></li>
-                            <li><a class="active" href="#reviews"  data-bs-toggle="tab">Reviews</a></li>
+                            <li><a class="active" href="#description" data-bs-toggle="tab">{% trans "Description" %}</a></li>
+                            <li><a href="#reviews"  data-bs-toggle="tab">{% trans "Reviews" %}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane" id="description">
+                        <div class="tab-pane active" id="description">
                             <div class="pro-tab-info pro-description">
                                 <h3 class="tab-title title-border mb-30">{% trans "Description" %}</h3>
                                 <p>{{ product.description }}</p>
                             </div>
                         </div>
-                        <div class="tab-pane active" id="reviews">
+                        <div class="tab-pane" id="reviews">
                             <div class="pro-tab-info pro-reviews">
                                 <div class="customer-review mb-60">
                                     <h3 class="tab-title title-border mb-30">Customer review</h3>
                                     <ul class="product-comments clearfix">
                                         <li class="mb-30">
                                             <div class="pro-reviewer">
-                                                <img src="img/reviewer/1.jpg" alt="" />
+                                                <img src="{% static 'assets/img/blog/1.jpg' %}" alt="" />
                                             </div>
                                             <div class="pro-reviewer-comment">
                                                 <div class="fix">
@@ -193,7 +184,7 @@
                                         </li>
                                         <li class="threaded-comments">
                                             <div class="pro-reviewer">
-                                                <img src="img/reviewer/1.jpg" alt="" />
+                                                <img src="{% static 'assets/img/blog/1.jpg' %}" alt="" />
                                             </div>
                                             <div class="pro-reviewer-comment">
                                                 <div class="fix">
@@ -212,9 +203,9 @@
                                     </ul>
                                 </div>
                                 <div class="leave-review">
-                                    <h3 class="tab-title title-border mb-30">Leave your reviw</h3>
+                                    <h3 class="tab-title title-border mb-30">{% trans "Leave a review" %}</h3>
                                     <div class="your-rating mb-30">
-                                        <p class="mb-10"><strong>Your Rating</strong></p>
+                                        <p class="mb-10"><strong>{% trans "Your rating" %}</strong></p>
                                         <span>
                                             <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
                                         </span>
@@ -258,7 +249,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <textarea class="custom-textarea" name="message" placeholder="Your review here..." ></textarea>
-                                                    <button type="submit" data-text="submit review" class="button-one submit-button mt-20">submit review</button>
+                                                    <button type="submit" data-text="submit review" class="button-one submit-button mt-20">{% trans "submit review" %}</button>
                                                 </div>
                                             </div>
                                         </form>

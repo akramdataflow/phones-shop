@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-24 22:42+0000\n"
+"POT-Creation-Date: 2025-05-25 18:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,13 +19,41 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: config/settings.py:104
+#: config/settings.py:106
 msgid "English"
 msgstr "الإنجليزية"
 
-#: config/settings.py:105
+#: config/settings.py:107
 msgid "Arabic"
 msgstr "العربية"
+
+#: core/models/brand.py:8
+#, fuzzy
+#| msgid "Brands"
+msgid "Brand"
+msgstr "العلامات التجارية"
+
+#: core/models/brand.py:9 templates/includes/footer.html:29
+msgid "Brands"
+msgstr "العلامات التجارية"
+
+#: core/models/category.py:8
+#, fuzzy
+#| msgid "Categories"
+msgid "Category"
+msgstr "الفئات"
+
+#: core/models/category.py:9 templates/includes/footer.html:19
+msgid "Categories"
+msgstr "الفئات"
+
+#: core/models/color.py:9 templates/product_details.html:80
+msgid "Color"
+msgstr "لون"
+
+#: core/models/color.py:10
+msgid "Colors"
+msgstr "ألوان"
 
 #: core/models/currency.py:13
 msgid "Currency"
@@ -83,7 +111,15 @@ msgstr "هذا الحقل محدد تلقائيًا من قبل النظام، �
 msgid "Tokenizer"
 msgstr "مُجزئ الكلمات"
 
-#: core/models/size.py:7
+#: core/models/profile.py:17
+msgid "Profile"
+msgstr "الملف الشخصي"
+
+#: core/models/profile.py:18
+msgid "Profiles"
+msgstr "الملفات الشخصية"
+
+#: core/models/size.py:7 templates/product_details.html:94
 msgid "Size"
 msgstr "الحجم"
 
@@ -200,14 +236,21 @@ msgstr "صور المنتج"
 msgid "About"
 msgstr "من نحن"
 
-#: templates/about.html:17 templates/contact.html:17
+#: templates/about.html:17 templates/contact.html:17 templates/home.html:3
 #: templates/includes/header.html:91 templates/includes/header.html:109
-#: templates/product.html:17
+#: templates/product.html:17 templates/product_details.html:17
 msgid "Home"
 msgstr "الرئيسية"
 
+#: templates/about.html:37
+#, fuzzy
+#| msgid "About"
+msgid "About Us"
+msgstr "من نحن"
+
 #: templates/contact.html:3 templates/contact.html:13 templates/contact.html:18
-#: templates/includes/header.html:94 templates/includes/header.html:112
+#: templates/includes/footer.html:9 templates/includes/header.html:94
+#: templates/includes/header.html:112
 msgid "Contact"
 msgstr "اتصل بنا"
 
@@ -215,24 +258,47 @@ msgstr "اتصل بنا"
 msgid "Contact Details"
 msgstr "تفاصيل الاتصال"
 
-#: templates/includes/footer.html:19
-msgid "Categories"
-msgstr "الفئات"
+#: templates/home.html:13
+#, fuzzy
+#| msgid "Products"
+msgid "Featured Products"
+msgstr "المنتجات"
 
-#: templates/includes/footer.html:31
-msgid "Brands"
-msgstr "العلامات التجارية"
+#: templates/home.html:20 templates/product.html:185
+msgid "No products found"
+msgstr "لا يوجد منتجات"
 
-#: templates/includes/footer.html:43
+#: templates/includes/footer.html:11
+msgid "Address"
+msgstr "العنوان"
+
+#: templates/includes/footer.html:12
+msgid "Phone"
+msgstr "الهاتف"
+
+#: templates/includes/footer.html:13
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: templates/includes/footer.html:39
 msgid "Stay Updated"
 msgstr "ابق على اطلاع"
 
-#: templates/includes/footer.html:47
+#: templates/includes/footer.html:43
 msgid "Subscribe"
 msgstr "اشتراك"
 
+#: templates/includes/footer.html:58
+msgid "Phone Shop"
+msgstr "متجر الهاتف"
+
+#: templates/includes/footer.html:58
+msgid "All rights reserved"
+msgstr "جميع الحقوق محفوظة"
+
 #: templates/includes/header.html:110 templates/product.html:3
 #: templates/product.html:13 templates/product.html:18
+#: templates/product_details.html:18
 msgid "Shop"
 msgstr "تسوق"
 
@@ -240,7 +306,7 @@ msgstr "تسوق"
 msgid "Close"
 msgstr "إغلاق"
 
-#: templates/includes/product_single.html:13
+#: templates/includes/product_single.html:13 templates/product_details.html:69
 msgid "Free"
 msgstr "مجاني"
 
@@ -250,6 +316,22 @@ msgstr "مجاني"
 msgid "products found"
 msgstr "المنتجات"
 
-#: templates/product.html:185
-msgid "No products found"
-msgstr "لا يوجد منتجات"
+#: templates/product_details.html:149 templates/product_details.html:159
+msgid "Description"
+msgstr "الوصف"
+
+#: templates/product_details.html:150
+msgid "Reviews"
+msgstr "التقييمات"
+
+#: templates/product_details.html:207
+msgid "Leave a review"
+msgstr "اترك تقييم"
+
+#: templates/product_details.html:209
+msgid "Your rating"
+msgstr "تقييمك"
+
+#: templates/product_details.html:253
+msgid "submit review"
+msgstr "أرسل التقييم"

@@ -12,12 +12,12 @@
                 <div class="col-md-4 col-5">
                     <div class="mini-cart text-end">
                         <ul>
-                            <li style="margin-top: auto; margin-bottom: auto;">
-                                <form action="{% url 'set_language' %}" method="post">
+                            <li>
+                                <form action="{% url 'set_language' %}" method="post" class="cart-icon">
                                     {% csrf_token %}
                                     <input name="next" type="hidden" value="{{ redirect_to }}">
                                     <select name="language" onchange="this.form.submit()" 
-                                            style="width: 50px; border: 1px solid #ccc; padding: 10px; border-radius: 0px; cursor: pointer;">
+                                            style="width: auto; border: 1px solid #ccc; padding: 4px; border-radius: 2px; cursor: pointer;">
                                         {% get_current_language as LANGUAGE_CODE %}
                                         {% get_available_languages as LANGUAGES %}
                                         {% for code, name in LANGUAGES %}

@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="single-footer">
-                        <h3 class="footer-title  title-border">Contact Us</h3>
+                        <h3 class="footer-title  title-border">{% trans "Contact" %}</h3>
                         <ul class="footer-contact">
-                            <li><span>Address :</span>28 Green Tower, Street Name,<br>New York City, USA</li>
-                            <li><span>Cell-Phone :</span>012345 - 123456789</li>
-                            <li><span>Email :</span>your-email@gmail.com</li>
+                            <li><span>{% trans "Address" %} :</span>28 Green Tower, Street Name,<br>Iraq, Baghdad</li>
+                            <li><span>{% trans "Phone" %} :</span>012345 - 123456789</li>
+                            <li><span>{% trans "Email" %} :</span>your-email@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -18,11 +18,9 @@
                     <div class="single-footer">
                         <h3 class="footer-title  title-border">{% trans "Categories" %}</h3>
                         <ul class="footer-menu">
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Account</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Wishlist</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Cart</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Sign In</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Check out</a></li>
+                            {% for category in top_categories|slice:":5" %}
+                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>{{ category.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -30,11 +28,9 @@
                     <div class="single-footer">
                         <h3 class="footer-title  title-border">{% trans "Brands" %}</h3>
                         <ul class="footer-menu">
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>New Products</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Top Sellers</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Manufactirers</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Suppliers</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Specials</a></li>
+                            {% for brand in top_brands|slice:":5" %}
+                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>{{ brand.name }}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -59,11 +55,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="copyright">
-                        <p class="mb-0">&copy; <a href="https://themeforest.net/user/codecarnival/portfolio" target="_blank">CodeCarnival </a> 2022. All Rights Reserved.</p>
+                        <p class="mb-0">&copy; <a href="#" target="_blank">{% trans "Phone Shop" %} </a> 2025. {% trans "All rights reserved" %}.</p>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="payment  text-md-end">
+                    <div class="payment text-md-end">
                         <a href="#"><img src="{% static 'assets/img/payment/1.png' %}" alt="" /></a>
                         <a href="#"><img src="{% static 'assets/img/payment/2.png' %}" alt="" /></a>
                         <a href="#"><img src="{% static 'assets/img/payment/3.png' %}" alt="" /></a>
