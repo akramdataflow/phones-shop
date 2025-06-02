@@ -8,7 +8,7 @@ from autoslug.fields import AutoSlugField
 
 def image_upload(instance, filename):
     ___, extension = os.path.splitext(filename)
-    return f"products/{instance.product.id}/images/{instance.id}{extension}"
+    return f"products/{instance.id}/images/{instance.id}{extension}"
 
 
 class ProductManager(models.Manager):
