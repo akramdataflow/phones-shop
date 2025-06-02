@@ -71,7 +71,7 @@
                             </span>
                         </div>
                         <div class="product-description">
-                            <p>{{ product.description }}</p>
+                            <p>{{ product.description|safe }}</p>
                         </div>
                         {% if product.has_color %}
                         <!-- color start -->								
@@ -144,7 +144,7 @@
                         <div class="tab-pane active" id="description">
                             <div class="pro-tab-info pro-description">
                                 <h3 class="tab-title title-border mb-30">{% trans "Description" %}</h3>
-                                <p>{{ product.description }}</p>
+                                <p>{{ product.description|safe }}</p>
                             </div>
                         </div>
                         <div class="tab-pane" id="reviews">
