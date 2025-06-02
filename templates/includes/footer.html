@@ -8,9 +8,15 @@
                     <div class="single-footer">
                         <h3 class="footer-title  title-border">{% trans "Contact" %}</h3>
                         <ul class="footer-contact">
-                            <li><span>{% trans "Address" %} :</span>28 Green Tower, Street Name,<br>Iraq, Baghdad</li>
-                            <li><span>{% trans "Phone" %} :</span>012345 - 123456789</li>
-                            <li><span>{% trans "Email" %} :</span>your-email@gmail.com</li>
+                            <li><span>{% trans "Address" %} :</span>
+                                {%if LANGUAGE_CODE == 'en' %}
+                                8FH5+52W, Baghdad, Baghdad Governorate, Iraq
+                                {% else %}
+                                بغداد زيونة شارع الربيعي بناية العربية مجاور بناية دولي<br>العراق، بغداد
+                                {% endif %}
+                            </li>
+                            <li><span>{% trans "Phone" %} :</span>07838707788 - 07722228068</li>
+                            <li><span>{% trans "Email" %} :</span>info@easr-alnaafidhih.com</li>
                         </ul>
                     </div>
                 </div>

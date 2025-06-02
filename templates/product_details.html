@@ -4,7 +4,7 @@
 {% block extra_css %}
 {% endblock extra_css %}
 {% block body %}
-<div class="heading-banner-area overlay-bg">
+<div class="heading-banner-area overlay-bg blur-filter" style="background-image: url({% static 'assets/img/bg/product-smart-phone.jpg' %});background-size: cover;background-position: center center;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -25,7 +25,7 @@
     </div>
 </div>
 <div class="product-area single-pro-area pt-80 pb-80 product-style-2">
-    <div class="container">	
+    <div class="product-area-container container">	
         <div class="row shop-list single-pro-info no-sidebar">
             <!-- Single-product start -->
             <div class="col-lg-12">
@@ -78,11 +78,10 @@
                         <div class="color-filter single-pro-color mb-20 clearfix">
                             <ul>
                                 <li><span class="color-title text-capitalize">{% trans "Color" %}</span></li>
-                                <li><a class="active" href="#"><span class="color color-1"></span></a></li>
                                 <li><a href="#"><span class="color color-2"></span></a></li>
-                                <li><a href="#"><span class="color color-7"></span></a></li>
-                                <li><a href="#"><span class="color color-3"></span></a></li>
-                                <li><a href="#"><span class="color color-4"></span></a></li>
+                                {% for color in product.productcolor_set.all %}
+                                <li><a href="#"><span class="color" style="background-color:{{ color.hex }};"></span></a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <!-- color end -->
@@ -93,10 +92,9 @@
                             <ul>
                                 <li><span class="color-title text-capitalize">{% trans "Size" %}</span></li>
                                 <li><a href="#">M</a></li>
-                                <li><a class="active" href="#">S</a></li>
-                                <li><a href="#">L</a></li>
-                                <li><a href="#">SL</a></li>
-                                <li><a href="#">XL</a></li>
+                                {% for size in product.productsize_set.all %}
+                                <li><a href="#">{{ size.size }}</a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <!-- Size end -->
@@ -116,21 +114,11 @@
                         {% endcomment %}
                         <!-- Single-pro-slider Small-photo start -->
                         <div class="single-pro-slider single-sml-photo slider-nav" dir="ltr">
+                            {% for image in product.productimage_set.all %}
                             <div>
-                                <img src="{% static 'assets/img/single-product/small/1.jpg' %}" alt="" />
+                                <img src="{{ image.image|thumbnail_url:'product' }}" alt="" />
                             </div>
-                            <div>
-                                <img src="{% static 'assets/img/single-product/small/2.jpg' %}" alt="" />
-                            </div>
-                            <div>
-                                <img src="{% static 'assets/img/single-product/small/3.jpg' %}" alt="" />
-                            </div>
-                            <div>
-                                <img src="{% static 'assets/img/single-product/small/4.jpg' %}" alt="" />
-                            </div>
-                            <div>
-                                <img src="{% static 'assets/img/single-product/small/5.jpg' %}" alt="" />
-                            </div>
+                            {% endfor %}
                         </div>
                         <!-- Single-pro-slider Small-photo end -->
                     </div>
@@ -266,4 +254,11 @@
 </div>
 {% endblock body %}
 {% block extra_js %}
+<script type="text/javascript">
+var windowWidth = $(window).width();
+if (windowWidth < 768) {
+    $('.product-area-container').addClass('container-fluid');
+    $('.product-area-container').removeClass('container');
+}
+</script>
 {% endblock extra_js %}

@@ -4,7 +4,7 @@
 {% block extra_css %}
 {% endblock extra_css %}
 {% block body %}
-<div class="heading-banner-area overlay-bg">
+<div class="heading-banner-area overlay-bg" style="background-image: url({% static 'assets/img/bg/abstract-blur-shopping-mall.jpg' %});background-size: cover;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -24,7 +24,7 @@
     </div>
 </div>
 <div class="product-area pt-80 pb-80 product-style-2">
-    <div class="container">
+    <div class="product-area-container container">
         <!-- Shop-Content End -->
         <div class="shop-content">
             <div class="row">
@@ -196,4 +196,11 @@
 </div>
 {% endblock body %}
 {% block extra_js %}
+<script type="text/javascript">
+var windowWidth = $(window).width();
+if (windowWidth < 768) {
+    $('.product-area-container').addClass('container-fluid');
+    $('.product-area-container').removeClass('container');
+}
+</script>
 {% endblock extra_js %}

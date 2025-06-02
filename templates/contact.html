@@ -4,7 +4,7 @@
 {% block extra_css %}
 {% endblock extra_css %}
 {% block body %}
-<div class="heading-banner-area overlay-bg">
+<div class="heading-banner-area overlay-bg" style="background-image: url({% static 'assets/img/bg/phone-store-location.jpg' %});background-size: cover;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -33,21 +33,24 @@
                         <ul>
                             <li>
                                 <i class="zmdi zmdi-pin"></i>
-                                <span>28 Green Tower, Street Name,</span>
-                                <span>Iraq, Baghdad</span>
+                                {%if LANGUAGE_CODE == 'en' %}
+                                8FH5+52W, Baghdad, Baghdad Governorate, Iraq
+                                {% else %}
+                                بغداد زيونة شارع الربيعي بناية العربية مجاور بناية دولي<br>العراق، بغداد
+                                {% endif %}
                             </li>
                             <li>
                                 <i class="zmdi zmdi-phone"></i>
-                                <span>+880 1234 123456</span>
-                                <span>+880 1234 123456</span>
+                                <span>07838707788</span>
+                                <span>07722228068</span>
                             </li>
                             <li>
                                 <i class="zmdi zmdi-email"></i>
-                                <span>company-email@gmail.com</span>
-                                <span>your-email@gmail.com</span>
+                                <span>info@easr-alnaafidhih.com</span>
                             </li>
                         </ul>
                     </div>
+                    {% comment %}
                     <div class="send-message mt-60">
                         <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
                             <h4 class="title-1 title-border text-uppercase mb-30">send message</h4>
@@ -58,24 +61,36 @@
                             <p class="form-message"></p>
                         </form>
                     </div>
+                    {% endcomment %}
                 </div>
                 <div class="col-lg-8 col-md-7 mt-xs-30">
                     <div class="map-area">
-                        <div id="map" style="height: 400px;"></div>
+                        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+                        <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
+                        <div id="osm-map" style="height: 400px;"></div>
                         <script>
-                        function initMap() {
-                            var uluru = {lat: 33.327, lng: 44.392};
-                            var map = new google.maps.Map(document.getElementById('map'), {
-                              zoom: 17,
-                              center: uluru
-                            });
-                            var marker = new google.maps.Marker({
-                              position: uluru,
-                              map: map
-                            });
-                          }
+                        var element = document.getElementById('osm-map');
+
+// Height has to be set. You can do this in CSS too.
+element.style = 'height:300px;';
+
+// Create Leaflet map on map element.
+var map = L.map(element);
+
+// Add OSM tile layer to the Leaflet map.
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Target's GPS coordinates.
+var target = L.latLng('33.3279917', '44.4575916'); // 33.3279917!4d44.4575916
+
+// Set map's center to target with zoom 14.
+map.setView(target, 14);
+
+// Place a marker on the same location.
+L.marker(target).addTo(map);
                         </script>
-                        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6lZoJ3JcVhj4A9hjJw1yfFQ8iDvU5JtTg&callback=initMap"></script>
                     </div>
                 </div>
             </div>
