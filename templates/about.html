@@ -35,8 +35,17 @@
                 <div class="col-lg-6">
                     <div class="about-brief bg-dark-white">
                         <h4 class="title-1 title-border text-uppercase mb-30">{% trans "About Us" %}</h4>
-                        <p>Phone Shop is an online store that sells mobile phones and accessories. we sell many popular brands such as RealMe Phone, Samsung, Oppo, Vivo, Xiaomi, and Apple. Our store is located in Iraq, Baghdad, and our goal is to provide the best products and services to our customers.</p>
-                        <p>We are a team of passionate and dedicated individuals who are committed to providing the best possible experience for our customers. We believe in the importance of quality, and we only sell products that meet our high standards.</p>
+                        {% if LANGUAGE_CODE == 'en' %}
+                        <p>At Aser Al Nafidha Company, we specialize in providing the latest mobile phones and high-quality accessories to meet the ever-evolving needs of our customers. Also we are realme distributors in the region.</p>
+                        <p>We offer a wide selection of smartphones from leading global brands, along with a carefully curated range of original and certified accessories — including headphones, chargers, phone cases, screen protectors, and more.</p>
+                        <p>Our mission is to deliver top-tier products, competitive prices, and excellent customer service. Whether you’re shopping retail or wholesale, we also provide after-sales support and professional repair services through our experienced technical team.</p>
+                        <p>Our vision is to be the first choice for smartphone and tech enthusiasts in Iraq, offering a reliable and smooth shopping experience that you can trust.</p>
+                        {% elif LANGUAGE_CODE == 'ar' %}
+                        <p>نحن في شركة عصر النافذة نُعدّ من الشركات الرائدة في مجال بيع أجهزة الموبايل والإكسسوارات، كما اننا الموزع لمنتجات ريلمي realme, حيث نسعى دائمًا لتقديم أحدث التقنيات وأفضل المنتجات التي تلبي احتياجات عملائنا المتجددة.</p>
+                        <p>نوفّر مجموعة واسعة من الهواتف الذكية من مختلف العلامات التجارية العالمية, بالإضافة إلى تشكيلة متميزة من الإكسسوارات الأصلية والمعتمدة مثل السماعات، الشواحن، الكفرات، حمايات الشاشة، وغيرها الكثير.</p>
+                        <p>نلتزم بالجودة العالية، الأسعار التنافسية، وخدمة العملاء المتميزة، كما نوفّر خيارات متعددة للبيع بالتجزئة والجملة، بالإضافة إلى خدمات ما بعد البيع والصيانة عبر فريق متخصص وذو خبرة.</p>
+                        <p>رؤيتنا هي أن نكون الخيار الأول لعشاق التقنية ومحبي الهواتف الذكية في العراق والمنطقة، من خلال توفير تجربة تسوّق موثوقة وسهلة.</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
