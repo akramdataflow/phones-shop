@@ -28,9 +28,7 @@
         <!-- Shop-Content End -->
         <div class="shop-content">
             <div class="row">
-                {% comment %}
-                {% include 'includes/product_filters.html' %}
-                {% endcomment %}
+                {% include 'includes/product_filters.html' with brands=brands categories=categories %}
                 <div class="col-md-12">
                     <div class="row">
                         {% for product in products %}

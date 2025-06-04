@@ -73,12 +73,21 @@
                         <div class="product-description">
                             <p>{{ product.description|linebreaks }}</p>
                         </div>
+                        <div class="mb-20 clearfix">
+                            <ul>
+                                <li><strong>{% trans "Category" %}</strong>: {{ product.category.name }}</li>
+                            </ul>
+                        </div>
+                        <div class="mb-20 clearfix">
+                            <ul>
+                                <li><strong>{% trans "Brand" %}</strong>: {{ product.brand.name }}</li>
+                            </ul>
+                        </div>
                         {% if product.has_color %}
                         <!-- color start -->								
                         <div class="color-filter single-pro-color mb-20 clearfix">
                             <ul>
                                 <li><span class="color-title text-capitalize">{% trans "Color" %}</span></li>
-                                <li><a href="#"><span class="color color-2"></span></a></li>
                                 {% for color in product.productcolor_set.all %}
                                 <li><a href="#"><span class="color" style="background-color:{{ color.hex }};"></span></a></li>
                                 {% endfor %}
@@ -91,7 +100,6 @@
                         <div class="size-filter single-pro-size mb-35 clearfix">
                             <ul>
                                 <li><span class="color-title text-capitalize">{% trans "Size" %}</span></li>
-                                <li><a href="#">M</a></li>
                                 {% for size in product.productsize_set.all %}
                                 <li><a href="#">{{ size.size }}</a></li>
                                 {% endfor %}

@@ -9,7 +9,7 @@ class Brand(models.Model):
         verbose_name_plural = _('Brands')
 
     name = models.CharField(max_length=100, unique=True)
-    slug = AutoSlugField(populate_from='name', unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True)  # type:ignore
     body = models.TextField(blank=True)
 
     def __str__(self):

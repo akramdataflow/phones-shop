@@ -1,54 +1,57 @@
-{% load i18n %}
+{% load static i18n humanize %}
 <div class="col-md-12">
     <div class="product-option mb-30 clearfix">
         <!-- Categories start -->
         <div class="dropdown floatleft">
-            <button class="option-btn">
-            Filter
-            </button>
+            <button class="option-btn">{% trans "Filter" %}</button>
             <div class="dropdown-menu dropdown-width">
-                <!-- Widget-Categories start -->
-                <aside class="widget widget-categories">
-                    <div class="widget-title">
-                        <h4>Categories</h4>
-                    </div>
-                    <div id="cat-treeview" class="widget-info product-cat boxscrol2" style="overflow: hidden; outline: none;" tabindex="4">
-                        <ul class="treeview">
-                            <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>Brands</span>
-                                <ul class="treeview" style="display: none;">
-                                    <li><a href="#">Realme</a></li>
-                                    <li><a href="#">Samsung</a></li>
-                                    <li><a href="#">Huawei</a></li>
-            <li><a href="#">Xiaomi</a></li>
-            <li><a href="#">Infinx</a></li>
-                                    <li><a href="#">Tecno</a></li>
-                                    <li><a href="#">Redmi</a></li>
-                                    <li><a href="#">Honor</a></li>
-                                    <li><a href="#">G_tap</a></li>
-                                    <li class="last"><a href="#">Anker</a></li>
-                                </ul>
-                            </li>          
-                            <li class="open expandable"><div class="hitarea expandable-hitarea"></div><span>Categories</span>
-                                <ul class="treeview">
-                                    <li><a href="#">Headphones</a></li>
-                                    <li><a href="#">Mobiles</a></li>
-                                    <li><a href="#">Tablets</a></li>
-                                </ul>
-                            </li>          
-                        </ul>
-                    </div>
-                </aside>
-                <!-- Widget-categories end -->
-            <div id="ascrail2004" class="nicescroll-rails nicescroll-rails-vr" style="width: 6px; z-index: 1000; cursor: default; position: absolute; top: 0px; left: -6px; height: 290px; display: none;"><div style="position: relative; top: 0px; float: right; width: 6px; height: 0px; background-color: rgb(200, 112, 101); border: 0px; background-clip: padding-box; border-radius: 5px;" class="nicescroll-cursors"></div></div><div style="cursor: pointer; z-index: 1000; background-image: none; height: 18px; width: 18px; background-position: 0px 0px; position: absolute; top: 1px; left: -26px;"></div><div id="ascrail2004-hr" class="nicescroll-rails nicescroll-rails-hr" style="height: 6px; z-index: 1000; top: 284px; left: 0px; position: absolute; cursor: default; display: none;"><div style="position: absolute; top: 0px; height: 6px; width: 0px; background-color: rgb(200, 112, 101); border: 0px; background-clip: padding-box; border-radius: 5px;" class="nicescroll-cursors"></div></div></div>
+                    <form method="GET" action="">
+                    <!-- Widget-Categories start -->
+                    <aside class="widget widget-categories" aria-label="widget-categories">
+                        <div class="widget-title">
+                            <h4>{% trans "Categories" %} & {% trans "Brands" %}</h4>
+                        </div>
+                        <div id="cat-treeview" class="widget-info product-cat boxscrol2" style="overflow: hidden; outline: none;">
+                            <ul class="treeview">
+                                <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>{% trans "Brands" %}</span>
+                                    <ul class="treeview">
+                                        {% for brand in brands %}
+                                        <li style="line-height: 10px;">
+                                            <input type="checkbox" name="brand" value="{{ brand.slug }}" id="brand-{{ brand.slug }}" {% if brand.slug in selected_brands %} checked {% endif %}>
+                                            <label for="brand-{{ brand.slug }}">{{ brand.name }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>          
+                                <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>{% trans "Categories" %}</span>
+                                    <ul class="treeview">
+                                        {% for category in categories %}
+                                        <li style="line-height: 10px;">
+                                            <input type="checkbox" name="category" value="{{ category.slug }}" id="category-{{ category.slug }}" {% if category.slug in selected_categories %} checked {% endif %}>
+                                            <label for="category-{{ category.slug }}">{{ category.name }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>          
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- Widget-categories end -->
+                    <button type="submit" class="btn btn-warning btn-sm" style="margin-left: 16px;">
+                        <i class="zmdi zmdi-filter-list"></i> {% trans "Apply Filters" %}
+                    </button>
+                </form>
+            </div>
         </div>	
         <!-- Categories end -->
+        {% comment %}
         <!-- Price start -->
-        <!--<div class="dropdown floatleft">
+        <div class="dropdown floatleft">
             <button class="option-btn">
             Price
             </button>
             <div class="dropdown-menu dropdown-width">
-                <!-- Shop-Filter start ->
+                <!-- Shop-Filter start -->
                 <aside class="widget shop-filter">
                     <div class="widget-title">
                         <h4>Price</h4>
@@ -63,17 +66,17 @@
                         </div>
                     </div>
                 </aside>
-                <!-- Shop-Filter end ->
+                <!-- Shop-Filter end -->
             </div>
-        </div>-->	
+        </div>
         <!--Price end -->
         <!-- Color start -->
-        <!--<div class="dropdown floatleft">
+        <div class="dropdown floatleft">
             <button class="option-btn">
             Color
             </button>
             <div class="dropdown-menu dropdown-width">
-                <!-- Widget-Color start ->
+                <!-- Widget-Color start -->
                 <aside class="widget widget-color">
                     <div class="widget-title">
                         <h4>Color</h4>
@@ -90,17 +93,17 @@
                         </ul>
                     </div>
                 </aside>
-                <!-- Widget-Color end ->
+                <!-- Widget-Color end -->
             </div>
         </div>
         <!-- Color end -->
-        <!-- Size start ->
+        <!-- Size start -->
         <div class="dropdown floatleft">
             <button class="option-btn">
             Size
             </button>
             <div class="dropdown-menu dropdown-width">
-                <!-- Widget-Size start ->
+                <!-- Widget-Size start -->
                 <aside class="widget widget-size">
                     <div class="widget-title">
                         <h4>Size</h4>
@@ -115,12 +118,13 @@
                         </ul>
                     </div>
                 </aside>
-                <!-- Widget-Size end ->
+                <!-- Widget-Size end -->
             </div>
         </div>	
-        <!-- Size end ->								
+        <!-- Size end -->
+        {% endcomment %}
         <div class="showing text-end">
             <p class="mb-0 d-none d-md-block">{{ product_count|intcomma }} {% trans "products found" %}</p>
-        </div>-->
+        </div>
     </div>						
 </div>
