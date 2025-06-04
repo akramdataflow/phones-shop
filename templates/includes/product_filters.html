@@ -2,7 +2,7 @@
 <div class="col-md-12">
     <div class="product-option mb-30 clearfix">
         <!-- Categories start -->
-        <div class="dropdown floatleft">
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
             <button class="option-btn">{% trans "Filter" %}</button>
             <div class="dropdown-menu dropdown-width">
                     <form method="GET" action="">
@@ -37,7 +37,7 @@
                         </div>
                     </aside>
                     <!-- Widget-categories end -->
-                    <button type="submit" class="btn btn-warning btn-sm" style="margin-left: 16px;">
+                    <button type="submit" class="btn btn-warning btn-sm mx-3">
                         <i class="zmdi zmdi-filter-list"></i> {% trans "Apply Filters" %}
                     </button>
                 </form>
@@ -46,7 +46,7 @@
         <!-- Categories end -->
         {% comment %}
         <!-- Price start -->
-        <div class="dropdown floatleft">
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
             <button class="option-btn">
             Price
             </button>
@@ -71,7 +71,7 @@
         </div>
         <!--Price end -->
         <!-- Color start -->
-        <div class="dropdown floatleft">
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
             <button class="option-btn">
             Color
             </button>
@@ -98,7 +98,7 @@
         </div>
         <!-- Color end -->
         <!-- Size start -->
-        <div class="dropdown floatleft">
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
             <button class="option-btn">
             Size
             </button>
