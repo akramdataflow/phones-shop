@@ -6,13 +6,12 @@
             {% if product.label %}
             <span class="pro-label new-label">{{ product.label }}</span>
             {% endif %}
-            <span class="pro-price-2">
+           <!-- <span class="pro-price-2">
                 {% if product.price > 0.0 %}
                 {{ product.price|intcomma }} {{ product.currency.code }}
-                {% else %}
                 {% trans "Free" %}
                 {% endif %}
-            </span>
+            </span>-->
             <a href="{% url 'product_details' product.slug %}">
                 {% if product.image %}
                 <img src="{{ product.image|thumbnail_url:'product' }}" alt="{{  product.name }}">
@@ -26,13 +25,9 @@
                 <h4 class="post-title"><a href="{% url 'product_details' product.slug %}">{{ product.name }}</a></h4>
             </div>
             <div class="fix">
-                <span class="pro-rating">
-                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                </span>
+              <span class="pro-price">
+                {{ product.price|intcomma }} {{ product.currency.code }}
+            </span>
             </div>
             {% comment %}
             <div class="product-action clearfix">
