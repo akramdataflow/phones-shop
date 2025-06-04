@@ -1425,7 +1425,7 @@ pre {
 }
 
 .overlay-bg::before {
-    background: rgba(255, 152, 0, .3) none repeat scroll 0 0;
+    background: rgba(85, 0, 78, .3) none repeat scroll 0 0;
     content: "";
     height: 100%;
     right: 0;
