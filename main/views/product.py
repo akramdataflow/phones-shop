@@ -14,12 +14,11 @@ def product_list(request):
     selected_brands = request.GET.getlist('brand')
     selected_categories = request.GET.getlist('category')
 
-    
     if selected_brands:
         products = products.filter(brand__slug__in=selected_brands)
     if selected_categories:
         products = products.filter(category__slug__in=selected_categories)
-    
+
     product_count = products.count()
     paginator = Paginator(products, 12)
     page_number = request.GET.get('page')
