@@ -1,0 +1,1 @@
+[{"model": "core.category", "pk": 1, "fields": {"name": "Mobiles", "slug": "mobiles", "body": ""}}, {"model": "core.category", "pk": 3, "fields": {"name": "Tablets", "slug": "tablets", "body": ""}}, {"model": "core.category", "pk": 6, "fields": {"name": "Headphones", "slug": "headphones", "body": ""}}]
