@@ -1,22 +1,45 @@
 {% extends 'base.html' %}
-{% load static i18n humanize thumbnail %}
-{% block title %}{{ product.name }}{% endblock title %}
+{% load static i18n thumbnail format_tags %}
+
+{% block title %}
+    {% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}
+{% endblock title %}
+
 {% block extra_css %}
+<style>
+    /* Custom styles for the Product Detail Page */
+    .product-detail-container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.07); }
+    .product-info h1.product-title { font-size: 2.2rem; font-weight: 900; color: #333; margin-bottom: 10px; }
+    .product-info .brand-category { font-size: 1rem; color: #666; margin-bottom: 25px; }
+    .product-info .pro-price { font-size: 1.8rem; font-weight: 700; color: #c87065; margin-bottom: 25px; display: block; }
+    .variant-selector { margin-bottom: 25px; }
+    .variant-selector .variant-label { font-weight: 600; color: #333; margin-bottom: 10px; display: block; }
+    .variant-options { display: flex; flex-wrap: wrap; gap: 10px; }
+    .color-option input[type="radio"] { display: none; }
+    .color-option .color-swatch { display: block; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #e0e0e0; transition: transform 0.2s ease, border-color 0.2s ease; }
+    .color-option input[type="radio"]:checked + .color-swatch { border-color: #c87065; transform: scale(1.15); box-shadow: 0 0 0 2px #fff, 0 0 0 4px #c87065; }
+    .quantity-display { margin-top: 15px; padding: 10px; background-color: #f8f9fa; border-radius: 5px; font-weight: 500; color: #555; }
+    .quantity-display .quantity-number { font-weight: 700; color: #333; }
+    .description-section { margin-top: 30px; border-top: 1px solid #eee; padding-top: 30px; }
+    .description-section .product-description-full p { font-size: 1rem; line-height: 1.7; color: #555; }
+</style>
 {% endblock extra_css %}
+
 {% block body %}
-<div class="heading-banner-area overlay-bg blur-filter" style="background-image: url({% static 'assets/img/bg/product-smart-phone.jpg' %});background-size: cover;background-position: center center;">
+
+<div class="heading-banner-area overlay-bg" style="background-image: url({% static 'assets/img/bg/product-smart-phone.jpg' %});">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="heading-banner">
                     <div class="heading-banner-title">
-                        <h2>{{ product.name }}</h2>
+                        <h2>{% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}</h2>
                     </div>
                     <div class="breadcumbs pb-15">
                         <ul>
                             <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
                             <li><a href="{% url 'product_list' %}">{% trans 'Shop' %}</a></li>
-                            <li>{{ product.name }}</li>
+                            <li>{% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}</li>
                         </ul>
                     </div>
                 </div>
@@ -24,249 +47,109 @@
         </div>
     </div>
 </div>
-<div class="product-area single-pro-area pt-80 pb-80 product-style-2">
-    <div class="product-area-container container">	
-        <div class="row shop-list single-pro-info no-sidebar">
-            <!-- Single-product start -->
-            <div class="col-lg-12">
-                <div class="single-product clearfix">
-                    <!-- Single-pro-slider Big-photo start -->
-                    <div class="single-pro-slider single-big-photo view-lightbox slider-for">
-                        {% for image in product.productimage_set.all %}
-                        <div>
-                            <img src="{{ image.image|thumbnail_url:'product' }}" alt="" />
-                            <a class="view-full-screen" href="{{ image.image.url }}"  data-lightbox="roadtrip" data-title="{{ product.name }}">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        {% empty %}
-                        <div>
-                            <img src="{{ product.image|thumbnail_url:'product' }}" alt="" />
-                            <a class="view-full-screen" href="{{ product.image.url }}"  data-lightbox="roadtrip" data-title="{{ product.name }}">
-                                <i class="zmdi zmdi-zoom-in"></i>
-                            </a>
-                        </div>
-                        {% endfor %}
-                    </div>	
-                    <!-- Single-pro-slider Big-photo end -->								
-                    <div class="product-info">
-                        <div class="fix">
-                            <h4 class="post-title">{{ product.name }}</h4>
-                            <span class="pro-rating float-right">
-                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                <span>( 27 Rating )</span>
-                            </span>
-                        </div>
-                        <div class="fix mb-20">
-                            <span class="pro-price">
-                                {% if product.price > 0.0 %}
-                                {{ product.price|intcomma }} {{ product.currency.code }}
-                                {% else %}
-                                {% trans "Free" %}
-                                {% endif %}
-                            </span>
-                        </div>
-                        <div class="product-description">
-                            <p>{{ product.description|linebreaks }}</p>
-                        </div>
-                        <div class="mb-20 clearfix">
-                            <ul>
-                                <li><strong>{% trans "Category" %}</strong>: {{ product.category.name }}</li>
-                            </ul>
-                        </div>
-                        <div class="mb-20 clearfix">
-                            <ul>
-                                <li><strong>{% trans "Brand" %}</strong>: {{ product.brand.name }}</li>
-                            </ul>
-                        </div>
-                        {% if product.has_color %}
-                        <!-- color start -->								
-                        <div class="color-filter single-pro-color mb-20 clearfix">
-                            <ul>
-                                <li><span class="color-title text-capitalize">{% trans "Color" %}</span></li>
-                                {% for color in product.productcolor_set.all %}
-                                <li><a href="#"><span class="color" style="background-color:{{ color.hex }};"></span></a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <!-- color end -->
-                        {% endif %}
-                        {% if product.has_size %}
-                        <!-- Size start -->
-                        <div class="size-filter single-pro-size mb-35 clearfix">
-                            <ul>
-                                <li><span class="color-title text-capitalize">{% trans "Size" %}</span></li>
-                                {% for size in product.productsize_set.all %}
-                                <li><a href="#">{{ size.size }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <!-- Size end -->
-                        {% endif %}
-                        {% comment %}
-                        <div class="clearfix">
-                            <div class="cart-plus-minus">
-                                <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
-                            </div>
-                            <div class="product-action clearfix">
-                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                            </div>
-                        </div>
-                        {% endcomment %}
-                        <!-- Single-pro-slider Small-photo start -->
-                        <div class="single-pro-slider single-sml-photo slider-nav" dir="ltr">
-                            {% for image in product.productimage_set.all %}
-                            <div>
-                                <img src="{{ image.image|thumbnail_url:'product' }}" alt="" />
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <!-- Single-pro-slider Small-photo end -->
-                    </div>
-                </div>
-            </div>
-            <!-- Single-product end -->
-        </div>
-        <!-- single-product-tab start -->
-        <div class="single-pro-tab">
+
+<div class="product-area single-pro-area pt-80 pb-80">
+    <div class="container">
+        <div class="product-detail-container">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="single-pro-tab-menu">
-                        <!-- Nav tabs -->
-                        <ul class="nav d-block">
-                            <li><a class="active" href="#description" data-bs-toggle="tab">{% trans "Description" %}</a></li>
-                            <li><a href="#reviews"  data-bs-toggle="tab">{% trans "Reviews" %}</a></li>
-                        </ul>
+                <div class="col-lg-5 col-md-6">
+                    <div class="single-pro-slider single-big-photo view-lightbox slider-for">
+                        {% if product.productimage_set.all %}
+                            {% for image in product.productimage_set.all %}
+                                <div><img src="{{ image.image.url }}" alt="{{ product.name }} image {{ forloop.counter }}" /></div>
+                            {% endfor %}
+                        {% elif product.image %}
+                            <div><img src="{{ product.image.url }}" alt="{{ product.name }}" /></div>
+                        {% else %}
+                            <div><img src="{% static 'assets/img/placeholder.png' %}" alt="No Image Available" /></div>
+                        {% endif %}
+                    </div>
+                    <div class="single-pro-slider single-sml-photo slider-nav mt-3" dir="ltr">
+                        {% if product.productimage_set.all|length > 1 %}
+                            {% for image in product.productimage_set.all %}
+                                <div><img src="{{ image.image|thumbnail_url:'product' }}" alt="thumbnail {{ forloop.counter }}" /></div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-md-9">
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="description">
-                            <div class="pro-tab-info pro-description">
-                                <h3 class="tab-title title-border mb-30">{% trans "Description" %}</h3>
-                                <p>{{ product.description|linebreaks }}</p>
+
+                <div class="col-lg-7 col-md-6">
+                    <div class="product-info">
+                        <h1 class="product-title">
+                            {% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}
+                        </h1>
+                        
+                        <div class="brand-category">
+                            {% trans "Brand" %}: <span>{% if LANGUAGE_CODE == 'ar' and product.brand.name_ar %}{{ product.brand.name_ar }}{% else %}{{ product.brand.name }}{% endif %}</span>
+                        </div>
+                        
+                        <span class="pro-price">
+                            {{ product.price|format_price }} {{ product.currency.code }}
+                        </span>
+                        
+                        <div class="variant-selector">
+                            <span class="variant-label">{% trans "Choose a Color" %}:</span>
+                            <div class="variant-options">
+                                {% for variant in product.productvariant_set.all %}
+                                    {% if variant.quantity > 0 and variant.color %}
+                                        <div class="color-option">
+                                            <input type="radio" name="variant_selector" id="variant_{{ variant.id }}" value="{{ variant.id }}" data-quantity="{{ variant.quantity }}" {% if forloop.first %}checked{% endif %}>
+                                            <label for="variant_{{ variant.id }}" class="color-swatch" style="background-color:{{ variant.color.hex_value }};" data-bs-toggle="tooltip" title="{{ variant.color.name }}"></label>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
+                            <div class="quantity-display" id="quantity-display-area"></div>
                         </div>
-                        <div class="tab-pane" id="reviews">
-                            <div class="pro-tab-info pro-reviews">
-                                <div class="customer-review mb-60">
-                                    <h3 class="tab-title title-border mb-30">Customer review</h3>
-                                    <ul class="product-comments clearfix">
-                                        <li class="mb-30">
-                                            <div class="pro-reviewer">
-                                                <img src="{% static 'assets/img/blog/1.jpg' %}" alt="" />
-                                            </div>
-                                            <div class="pro-reviewer-comment">
-                                                <div class="fix">
-                                                    <div class="floatleft mbl-center">
-                                                        <h5 class="text-uppercase mb-0"><strong>Gerald Barnes</strong></h5>
-                                                        <p class="reply-date">27 Jun, 2021 at 2:30pm</p>
-                                                    </div>
-                                                    <div class="comment-reply floatright">
-                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </div>
-                                                </div>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                            </div>
-                                        </li>
-                                        <li class="threaded-comments">
-                                            <div class="pro-reviewer">
-                                                <img src="{% static 'assets/img/blog/1.jpg' %}" alt="" />
-                                            </div>
-                                            <div class="pro-reviewer-comment">
-                                                <div class="fix">
-                                                    <div class="floatleft mbl-center">
-                                                        <h5 class="text-uppercase mb-0"><strong>Gerald Barnes</strong></h5>
-                                                        <p class="reply-date">27 Jun, 2021 at 2:30pm</p>
-                                                    </div>
-                                                    <div class="comment-reply floatright">
-                                                        <a href="#"><i class="zmdi zmdi-mail-reply"></i></a>
-                                                        <a href="#"><i class="zmdi zmdi-close"></i></a>
-                                                    </div>
-                                                </div>
-                                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
-                                            </div>
-                                        </li>
-                                    </ul>
+
+                        <div class="description-section">
+                            <h5 class="title-border">{% trans "Description" %}</h5>
+                            
+                            {# Show the correct description based on the current language #}
+                            {% if LANGUAGE_CODE == 'ar' and product.description_ar %}
+                                <div class="product-description-full">
+                                    {{ product.description_ar|linebreaks }}
                                 </div>
-                                <div class="leave-review">
-                                    <h3 class="tab-title title-border mb-30">{% trans "Leave a review" %}</h3>
-                                    <div class="your-rating mb-30">
-                                        <p class="mb-10"><strong>{% trans "Your rating" %}</strong></p>
-                                        <span>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                        </span>
-                                        <span class="separator">|</span>
-                                        <span>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                        </span>
-                                        <span class="separator">|</span>
-                                        <span>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                        </span>
-                                        <span class="separator">|</span>
-                                        <span>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                        </span>
-                                        <span class="separator">|</span>
-                                        <span>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                            <a href="#"><i class="zmdi zmdi-star-outline"></i></a>
-                                        </span>
-                                    </div>
-                                    <div class="reply-box">
-                                        <form action="#">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <input type="text" placeholder="Your name here..." name="name" />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" placeholder="Subject..." name="name" />
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <textarea class="custom-textarea" name="message" placeholder="Your review here..." ></textarea>
-                                                    <button type="submit" data-text="submit review" class="button-one submit-button mt-20">{% trans "submit review" %}</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                            {% else %}
+                                <div class="product-description-full">
+                                    {{ product.description|linebreaks }}
                                 </div>
-                            </div>		
+                            {% endif %}
                         </div>
-                    </div>									
+
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- single-product-tab end -->
     </div>
 </div>
 {% endblock body %}
+
 {% block extra_js %}
-<script type="text/javascript">
-var windowWidth = $(window).width();
-if (windowWidth < 768) {
-    $('.product-area-container').addClass('container-fluid');
-    $('.product-area-container').removeClass('container');
-}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const variantRadios = document.querySelectorAll('input[name="variant_selector"]');
+    const quantityDisplayArea = document.getElementById('quantity-display-area');
+
+    function updateQuantity() {
+        if (!quantityDisplayArea) return;
+        const selectedRadio = document.querySelector('input[name="variant_selector"]:checked');
+        
+        if (selectedRadio) {
+            const quantity = selectedRadio.getAttribute('data-quantity');
+            quantityDisplayArea.innerHTML = `{% trans "Available Quantity" %}: <span class="quantity-number">${quantity}</span>`;
+        } else {
+            // If no colors are available at all
+            quantityDisplayArea.style.display = 'none';
+        }
+    }
+
+    variantRadios.forEach(radio => {
+        radio.addEventListener('change', updateQuantity);
+    });
+
+    // Run once on page load
+    updateQuantity();
+});
 </script>
 {% endblock extra_js %}

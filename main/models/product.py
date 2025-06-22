@@ -17,10 +17,10 @@ class ProductManager(models.Manager):
         return (
             super(ProductManager, self).get_queryset()
             .select_related(
-                'category', 'brand', 
+                'category', 'brand', 'currency'
             )
             .prefetch_related(
-                'productvariant_set', 'productimage_set',
+                'productvariant_set__color', 'productvariant_set__size', 'productimage_set',
             )
         )
 
@@ -39,30 +39,35 @@ class Product(models.Model):
         ("out-of-stock", _("Out of Stock")),
     )
 
-    name = models.CharField(max_length=255)
+    # --- Translation Fields Added ---
+    name = models.CharField(_("Product Name (English)"), max_length=255)
+    name_ar = models.CharField(_("Product Name (Arabic)"), max_length=255, blank=True, null=True)
+    description = models.TextField(_("Description (English)"))
+    description_ar = models.TextField(_("Description (Arabic)"), blank=True, null=True)
+    # --- End of Translation Fields ---
+
     slug = AutoSlugField(populate_from='name', unique=True)  # type: ignore
     label = models.CharField(max_length=255, choices=LABELS, null=True, blank=True)
     image = models.ImageField(upload_to=image_upload, null=True, blank=True)
-    brand = models.ForeignKey("core.Brand", on_delete=models.CASCADE)
-    category = models.ForeignKey("core.Category", on_delete=models.CASCADE)
+    brand = models.ForeignKey("core.Brand", on_delete=models.CASCADE, verbose_name=_("Brand"))
+    category = models.ForeignKey("core.Category", on_delete=models.CASCADE, verbose_name=_("Category"))
     currency = models.ForeignKey("core.Currency", on_delete=models.CASCADE, default=2)
-    description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     is_featured = models.BooleanField(default=False)
-    has_size = models.BooleanField(verbose_name=_("Product has Size"), default=False)
-    has_color = models.BooleanField(verbose_name=_("Product has Color"), default=False)
+    has_size = models.BooleanField(verbose_name=_("Product has Size Variants"), default=False)
+    has_color = models.BooleanField(verbose_name=_("Product has Color Variants"), default=False)
 
     def __str__(self):
         return self.name
 
     def get_total_price(self, size_id: int = None) -> decimal.Decimal:
-        total_price = decimal.Decimal(self.price)  # type: ignore
+        total_price = decimal.Decimal(self.price)
         if size_id:
-            variant = self.productvariant_set.filter(size_id=size_id).first() # type: ignore
+            variant = self.productvariant_set.filter(size_id=size_id).first()
             if variant:
                 total_price += variant.get_total_price()
         else:
-            variant = self.productvariant_set.first() # type: ignore
+            variant = self.productvariant_set.first()
             if variant:
                 total_price += variant.get_total_price()
         return total_price
@@ -74,16 +79,21 @@ class ProductVariant(models.Model):
         verbose_name_plural = _("Product Variants")
 
     product = models.ForeignKey("Product", on_delete=models.CASCADE)
-    size = models.ForeignKey("core.Size", on_delete=models.SET_NULL, null=True)
-    color = models.ForeignKey("core.Color", on_delete=models.SET_NULL, null=True)
-    quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=decimal.Decimal(0.0))
+    size = models.ForeignKey("core.Size", on_delete=models.SET_NULL, null=True, blank=True)
+    color = models.ForeignKey("core.Color", on_delete=models.SET_NULL, null=True, blank=True)
+    quantity = models.PositiveIntegerField(_("Quantity"), default=1, help_text=_("Set to 0 if out of stock"))
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=decimal.Decimal(0.0), help_text=_("Additional price for this variant, can be 0"))
 
     def __str__(self):
-        return f"{self.product.name} - {self.size} - {self.price}"
+        parts = [self.product.name]
+        if self.color:
+            parts.append(self.color.name)
+        if self.size:
+            parts.append(self.size.name)
+        return " - ".join(parts)
 
     def get_total_price(self):
-        return self.price * self.quantity  # type: ignore
+        return self.price * self.quantity
 
 
 class ProductImage(models.Model):

@@ -15,7 +15,7 @@
                 </div>
                 <div class="product-slider style-2 arrow-left-right" dir="ltr">
                     {% for product in featured_products %}
-                        {% include "includes/product_single.html" with product=product %}
+                    {% include "includes/product_single.html" with product=product %}
                     {% empty %}
                     <div class="text-center">
                         <p>{% trans "No products found" %}</p>
@@ -29,10 +29,10 @@
 {% endblock body %}
 {% block extra_js %}
 <script type="text/javascript">
-var windowWidth = $(window).width();
-if (windowWidth < 768) {
-    $('.product-area-container').addClass('container-fluid');
-    $('.product-area-container').removeClass('container');
-}
+    var windowWidth = $(window).width();
+    if (windowWidth < 768) {
+        $('.product-area-container').addClass('container-fluid');
+        $('.product-area-container').removeClass('container');
+    }
 </script>
 {% endblock extra_js %}

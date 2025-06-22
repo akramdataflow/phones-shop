@@ -1,51 +1,110 @@
 {% load static i18n %}
-<!-- BRAND-LOGO-AREA START -->
+
+<style>
+    /* 1. زيادة تحديد الحاوية لجعلها مرجعاً قوياً */
+    .brand-logo-area .brand {
+        position: relative !important;
+        padding: 0 45px !important;
+        /* زيادة المساحة الجانبية قليلاً */
+    }
+
+    /* 2. فرض الأنماط على الأزرار بقوة */
+    .brand-logo-area .brand .slick-arrow {
+        /* --- Positioning Properties (Most Critical) --- */
+        position: absolute !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: 99 !important;
+        /* التأكد من أنها في المقدمة */
+
+        /* --- Display and Visibility --- */
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+
+        /* --- Appearance --- */
+        background: #ffffff !important;
+        color: #000000 !important;
+        /* لون أسود ليكون واضحاً */
+        border: 1px solid #ccc !important;
+        border-radius: 50% !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15) !important;
+
+        /* --- Sizing and Alignment --- */
+        width: 40px !important;
+        height: 40px !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        cursor: pointer !important;
+        transition: background-color 0.2s, color 0.2s !important;
+    }
+
+    /* 3. فرض نمط التمرير */
+    .brand-logo-area .brand .slick-arrow:hover {
+        background: #000 !important;
+        color: #fff !important;
+    }
+
+    /* 4. فرض موضع السهم الأيسر */
+    .brand-logo-area .brand .brand-slick-prev {
+        left: 0px !important;
+    }
+
+    /* 5. فرض موضع السهم الأيمن */
+    .brand-logo-area .brand .brand-slick-next {
+        right: 0px !important;
+    }
+</style>
 <div class="brand-logo-area pt-80 pb-40">
     <div class="product-area-container container">
         <div class="brand" dir="ltr">
+            <button class="brand-slick-prev slick-arrow" type="button" onclick="handleBrandNav('prev')">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
             <div class="brand-slider">
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=g_tap">
-                        <img src="{% static 'assets/img/brand/g-tab.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=g_tap"><img src="{% static 'assets/img/brand/g-tab.jpeg' %}"
+                            alt="g-tab" width="100" height="50" /></a>
                 </div>
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=honor">
-                        <img src="{% static 'assets/img/brand/honor.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=honor"><img src="{% static 'assets/img/brand/honor.jpeg' %}"
+                            alt="honor" width="100" height="50" /></a>
                 </div>
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=infinx&brand=infinix">
-                        <img src="{% static 'assets/img/brand/infinix.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=infinx&brand=infinix"><img
+                            src="{% static 'assets/img/brand/infinix.jpeg' %}" alt="infinix" width="100"
+                            height="50" /></a>
                 </div>
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=nokia">
-                        <img src="{% static 'assets/img/brand/nokia.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=nokia"><img src="{% static 'assets/img/brand/nokia.jpeg' %}"
+                            alt="nokia" width="100" height="50" /></a>
                 </div>
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=realme">
-                        <img src="{% static 'assets/img/brand/realme.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=realme"><img
+                            src="{% static 'assets/img/brand/realme.jpeg' %}" alt="realme" width="100"
+                            height="50" /></a>
                 </div>
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=samsung">
-                        <img src="{% static 'assets/img/brand/samsung.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=samsung"><img
+                            src="{% static 'assets/img/brand/samsung.jpeg' %}" alt="samsung" width="100"
+                            height="50" /></a>
                 </div>
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=tecno">
-                        <img src="{% static 'assets/img/brand/tecno.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=tecno"><img src="{% static 'assets/img/brand/tecno.jpeg' %}"
+                            alt="tecno" width="100" height="50" /></a>
                 </div>
                 <div class="single-brand">
-                    <a href="{% url 'product_list' %}?brand=xiaomi">
-                        <img src="{% static 'assets/img/brand/xiaomi.jpeg' %}" alt="" width="100" height="50" />
-                    </a>
+                    <a href="{% url 'product_list' %}?brand=xiaomi"><img
+                            src="{% static 'assets/img/brand/xiaomi.jpeg' %}" alt="xiaomi" width="100"
+                            height="50" /></a>
                 </div>
             </div>
+
+            <button class="brand-slick-next slick-arrow" type="button" onclick="handleBrandNav('next')">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
     </div>
 </div>
-<!-- BRAND-LOGO-AREA END -->

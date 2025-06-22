@@ -2,9 +2,27 @@
 {% load static i18n humanize %}
 {% block title %}{% trans "Contact" %}{% endblock title %}
 {% block extra_css %}
+<style>
+    .map-container {
+        margin-bottom: 30px;
+    }
+
+    .map-title {
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .map-wrapper {
+        height: 300px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+</style>
 {% endblock extra_css %}
 {% block body %}
-<div class="heading-banner-area overlay-bg" style="background-image: url({% static 'assets/img/bg/phone-store-location.jpg' %});background-size: cover;">
+<div class="heading-banner-area overlay-bg"
+    style="background-image: url({% static 'assets/img/bg/phone-store-location.jpg' %});background-size: cover;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -23,15 +41,17 @@
         </div>
     </div>
 </div>
-<div class="contact-us-area  pt-80 pb-80">
-    <div class="container">	
+<div class="contact-us-area pt-80 pb-80">
+    <div class="container">
         <div class="contact-us customer-login bg-white">
             <div class="row">
                 <div class="col-lg-4 col-md-5">
                     <div class="contact-details">
-                        <h4 class="title-1 title-border text-uppercase mb-30">{% trans "Contact Details" %}</h4>
+                        <h4 class="title-1 title-border text-uppercase mb-30">{% trans "الفرع الأول: بغداد - زيونة" %}
+                        </h4>
                         <ul>
-                            <li onclick="window.open('https://www.google.com/maps/search/?api=1&query=33.3279917,44.4575916', '_blank');" style="cursor: pointer;background: none; border: none; padding: 0;">
+                            <li onclick="window.open('https://www.google.com/maps?q=33.3279917,44.4575916', '_blank');"
+                                style="cursor: pointer;background: none; border: none; padding: 0;">
                                 <i class="zmdi zmdi-pin"></i>
                                 {%if LANGUAGE_CODE == 'en' %}
                                 8FH5+52W, Baghdad, Baghdad Governorate, Iraq
@@ -49,48 +69,42 @@
                                 <span>info@easr-alnaafidhih.com</span>
                             </li>
                         </ul>
+
+                        <h4 class="title-1 title-border text-uppercase mt-50 mb-30">{% trans "الفرع الثاني: شركة الودج" %}</h4>
+                        <ul>
+                            <li onclick="window.open('https://www.google.com/maps?q=33.3238548,44.4509646', '_blank');"
+                                style="cursor: pointer;background: none; border: none; padding: 0;">
+                                <i class="zmdi zmdi-pin"></i>
+                                {%if LANGUAGE_CODE == 'en' %}
+                                8FF2+G9W, Baghdad, Iraq
+                                {% else %}
+                                شركة الودج لدعم المشاريع، قرب الامير مول شارع الربيعي<br>العراق، بغداد
+                                {% endif %}
+                            </li>
+                            <li>
+                                <i class="zmdi zmdi-phone"></i>
+                                <span>07700000000</span>
+                            </li>
+                            <li>
+                                <i class="zmdi zmdi-email"></i>
+                                <span>branch2@easr-alnaafidhih.com</span>
+                            </li>
+                        </ul>
                     </div>
-                    {% comment %}
-                    <div class="send-message mt-60">
-                        <form id="contact-form" action="https://whizthemes.com/mail-php/other/mail.php">
-                            <h4 class="title-1 title-border text-uppercase mb-30">send message</h4>
-                            <input type="text" name="con_name" placeholder="Your name here...">
-                            <input type="text" name="con_email" placeholder="Your email here...">
-                            <textarea class="custom-textarea" name="con_message" placeholder="Your comment here..."></textarea>
-                            <button class="button-one submit-button mt-20" data-text="submit message" type="submit">submit message</button>
-                            <p class="form-message"></p>
-                        </form>
-                    </div>
-                    {% endcomment %}
                 </div>
                 <div class="col-lg-8 col-md-7 mt-xs-30">
                     <div class="map-area">
-                        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-                        <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
-                        <div id="osm-map" style="height: 400px;"></div>
-                        <script>
-                        var element = document.getElementById('osm-map');
+                        <!-- Map for Branch 1 -->
+                        <div class="map-container">
+                            <div class="map-title">{% trans "موقع الفرع الأول: زيونة" %}</div>
+                            <div id="map-branch1" class="map-wrapper"></div>
+                        </div>
 
-// Height has to be set. You can do this in CSS too.
-element.style = 'height:300px;';
-
-// Create Leaflet map on map element.
-var map = L.map(element);
-
-// Add OSM tile layer to the Leaflet map.
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// Target's GPS coordinates.
-var target = L.latLng('33.3279917', '44.4575916'); // 33.3279917!4d44.4575916
-
-// Set map's center to target with zoom 14.
-map.setView(target, 14);
-
-// Place a marker on the same location.
-L.marker(target).addTo(map);
-                        </script>
+                        <!-- Map for Branch 2 -->
+                        <div class="map-container">
+                            <div class="map-title">{% trans "موقع الفرع الثاني: شركة الودج" %}</div>
+                            <div id="map-branch2" class="map-wrapper"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -99,4 +113,42 @@ L.marker(target).addTo(map);
 </div>
 {% endblock body %}
 {% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet" />
+<script>
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Coordinates for branches
+        const branch1Coords = [33.3279917, 44.4575916]; // Branch 1: Zayouna
+        const branch2Coords = [33.3238548, 44.4509646]; // Branch 2: Al-Wajh Company
+
+        // Initialize both maps
+        initMap('map-branch1', branch1Coords, "{% trans 'الفرع الأول: زيونة' %}", "{% trans 'شارع الربيعي' %}");
+        initMap('map-branch2', branch2Coords, "{% trans 'الفرع الثاني: شركة الودج' %}", "{% trans 'قرب الامير مول' %}");
+
+        // Function to initialize a map
+        function initMap(mapId, coords, title, description) {
+            // Create the map
+            const map = L.map(mapId).setView(coords, 16);
+
+            // Add the OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Add a marker with popup
+            L.marker(coords).addTo(map)
+                .bindPopup(`<b>${title}</b><br>${description}`)
+                .openPopup();
+
+            // Add a circle around the marker for better visibility
+            L.circle(coords, {
+                color: '#3388ff',
+                fillColor: '#3388ff',
+                fillOpacity: 0.2,
+                radius: 100
+            }).addTo(map);
+        }
+    });
+</script>
 {% endblock extra_js %}
