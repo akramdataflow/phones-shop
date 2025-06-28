@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static i18n humanize %}
+{% block title %}{% trans "Shop" %}{% endblock title %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block body %}
+<div class="heading-banner-area overlay-bg" style="background-image: url({% static 'assets/img/bg/abstract-blur-shopping-mall.jpg' %});background-size: cover;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>{% trans "Shop" %}</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                            <li>{% trans 'Shop' %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="product-area pt-80 pb-80 product-style-2">
+    <div class="product-area-container container">
+        <!-- Shop-Content End -->
+        <div class="shop-content">
+            <div class="row">
+                {% include 'includes/product_filters.html' with brands=brands categories=categories %}
+                <div class="col-md-12">
+                    <div class="row">
+                        {% for product in products %}
+                        {% include 'includes/product_single.html' with product=product %}
+                        {% empty %}
+                        <p class="text-center">{% trans "No products found" %}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    {% include 'includes/pagination.html' with paginated_list=products %}
+                </div>
+            </div>
+        </div>
+        <!-- Shop-Content End -->
+    </div>
+</div>
+{% endblock body %}
+{% block extra_js %}
+<script type="text/javascript">
+var windowWidth = $(window).width();
+if (windowWidth < 768) {
+    $('.product-area-container').addClass('container-fluid');
+    $('.product-area-container').removeClass('container');
+}
+</script>
+{% endblock extra_js %}

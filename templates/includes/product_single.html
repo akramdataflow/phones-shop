@@ -1,0 +1,51 @@
+{% load static i18n thumbnail format_tags %}
+
+<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 col-6">
+    <div class="single-product">
+        <div class="product-img">
+            {% if product.label %}
+            <span class="pro-label new-label">{{ product.label }}</span>
+            {% endif %}
+            <a href="{% url 'product_details' product.slug %}">
+                {% if product.image %}
+                <img src="{{ product.image|thumbnail_url:'product' }}"
+                    alt="{% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}">
+                {% else %}
+                <img src="{% static 'assets/img/product/1.jpg' %}"
+                    alt="{% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}">
+                {% endif %}
+            </a>
+        </div>
+        <div class="product-info clearfix text-center">
+            <div class="fix">
+                <h4 class="post-title">
+                    <a href="{% url 'product_details' product.slug %}">
+                        {# MODIFICATION 1: Show Arabic name if available #}
+                        {% if LANGUAGE_CODE == 'ar' and product.name_ar %}
+                        {{ product.name_ar }}
+                        {% else %}
+                        {{ product.name }}
+                        {% endif %}
+                    </a>
+                </h4>
+            </div>
+            <div class="fix">
+                <span class="pro-price">
+                    {# Using the custom filter for price formatting #}
+                    {{ product.price|format_price }} {{ product.currency.code }}
+                </span>
+            </div>
+
+            <div class="available-colors-preview mt-2">
+                {% for variant in product.productvariant_set.all %}
+                {# Only show if quantity > 0 and it's a color variant #}
+                {% if variant.quantity > 0 and variant.color %}
+                <span class="color-swatch" style="background-color: {{ variant.color.hex }};" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="{{ variant.color.name }}">
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

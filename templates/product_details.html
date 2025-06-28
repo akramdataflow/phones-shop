@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static i18n thumbnail format_tags %}
+
+{% block title %}
+    {% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}
+{% endblock title %}
+
+{% block extra_css %}
+<style>
+    /* ... All the CSS styles from the previous version remain here ... */
+    .product-detail-container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 5px 25px rgba(0,0,0,0.07); }
+    .product-info h1.product-title { font-size: 2.2rem; font-weight: 900; color: #333; margin-bottom: 10px; }
+    .product-info .brand-category { font-size: 1rem; color: #666; margin-bottom: 25px; }
+    .product-info .pro-price { font-size: 1.8rem; font-weight: 700; color: #c87065; margin-bottom: 25px; display: block; }
+    .variant-selector { margin-bottom: 25px; }
+    .variant-selector .variant-label { font-weight: 600; color: #333; margin-bottom: 10px; display: block; }
+    .variant-options { display: flex; flex-wrap: wrap; gap: 10px; }
+    .color-option input[type="radio"] { display: none; }
+    .color-option .color-swatch { display: block; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid #e0e0e0; transition: transform 0.2s ease, border-color 0.2s ease; }
+    .color-option input[type="radio"]:checked + .color-swatch { border-color: #c87065; transform: scale(1.15); box-shadow: 0 0 0 2px #fff, 0 0 0 4px #c87065; }
+    .quantity-display { margin-top: 15px; padding: 10px; background-color: #f8f9fa; border-radius: 5px; font-weight: 500; color: #555; }
+    .quantity-display .quantity-number { font-weight: 700; color: #333; }
+    .description-section { margin-top: 30px; border-top: 1px solid #eee; padding-top: 30px; }
+    .description-section .product-description-full p { font-size: 1rem; line-height: 1.7; color: #555; }
+</style>
+{% endblock extra_css %}
+
+{% block body %}
+
+<div class="heading-banner-area overlay-bg" style="background-image: url({% static 'assets/img/bg/product-smart-phone.jpg' %});">
+    <div class="container">
+        </div>
+</div>
+
+<div class="product-area single-pro-area pt-80 pb-80">
+    <div class="container">
+        <div class="product-detail-container">
+            <div class="row">
+                <div class="col-lg-5 col-md-6">
+                    <div class="single-pro-slider single-big-photo view-lightbox slider-for">
+                        {% if product.productimage_set.all %}
+                            {% for image in product.productimage_set.all %}
+                                <div><img src="{{ image.image.url }}" alt="{{ product.name }} image {{ forloop.counter }}" /></div>
+                            {% endfor %}
+                        {% elif product.image %}
+                            <div><img src="{{ product.image.url }}" alt="{{ product.name }}" /></div>
+                        {% else %}
+                            <div><img src="{% static 'assets/img/placeholder.png' %}" alt="No Image Available" /></div>
+                        {% endif %}
+                    </div>
+                    <div class="single-pro-slider single-sml-photo slider-nav mt-3" dir="ltr">
+                        {% if product.productimage_set.all|length > 1 %}
+                            {% for image in product.productimage_set.all %}
+                                <div><img src="{{ image.image|thumbnail_url:'product' }}" alt="thumbnail {{ forloop.counter }}" /></div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-7 col-md-6">
+                    <div class="product-info">
+                        <h1 class="product-title">
+                            {% if LANGUAGE_CODE == 'ar' and product.name_ar %}{{ product.name_ar }}{% else %}{{ product.name }}{% endif %}
+                        </h1>
+                        <div class="brand-category">
+                            {% trans "Brand" %}: <span>{% if LANGUAGE_CODE == 'ar' and product.brand.name_ar %}{{ product.brand.name_ar }}{% else %}{{ product.brand.name }}{% endif %}</span>
+                        </div>
+                        <span class="pro-price">
+                            {{ product.price|format_price }} {{ product.currency.code }}
+                        </span>
+                        
+                        <div class="variant-selector">
+                            <span class="variant-label">{% trans "Choose a Color" %}:</span>
+                            <div class="variant-options">
+                                {% for variant in product.productvariant_set.all %}
+                                    {% if variant.quantity > 0 and variant.color %}
+                                        <div class="color-option">
+                                            <input type="radio" name="variant_selector" id="variant_{{ variant.id }}" value="{{ variant.id }}" data-quantity="{{ variant.quantity }}" {% if forloop.first %}checked{% endif %}>
+                                            <label for="variant_{{ variant.id }}" class="color-swatch" style="background-color:{{ variant.color.hex_value }};" data-bs-toggle="tooltip" title="{{ variant.color.name }}"></label>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="quantity-display" id="quantity-display-area"></div>
+                        </div>
+
+                        <div class="description-section">
+                            <h5 class="title-border">{% trans "Description" %}</h5>
+                            {% if LANGUAGE_CODE == 'ar' and product.description_ar %}
+                                <div class="product-description-full">
+                                    {{ product.description_ar|linebreaks }}
+                                </div>
+                            {% else %}
+                                <div class="product-description-full">
+                                    {{ product.description|linebreaks }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if the page is in RTL mode
+    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+
+    // Destroy the old sliders first to avoid conflicts with the main JS file
+    if (jQuery('.slider-for').hasClass('slick-initialized')) {
+        jQuery('.slider-for').slick('unslick');
+    }
+    if (jQuery('.slider-nav').hasClass('slick-initialized')) {
+        jQuery('.slider-nav').slick('unslick');
+    }
+
+    // Re-initialize the sliders with the correct RTL setting
+    jQuery('.slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        rtl: isRtl, // Set RTL mode based on page direction
+        asNavFor: '.slider-nav'
+    });
+
+    jQuery('.slider-nav').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: false,
+        arrows: true,
+        rtl: false, // Keep thumbnails LTR for correct navigation
+        focusOnSelect: true,
+        prevArrow: '<div class="single-pro-arrow arrow-left"><i class="zmdi zmdi-chevron-left"></i></div>',
+        nextArrow: '<div class="single-pro-arrow arrow-right"><i class="zmdi zmdi-chevron-right"></i></div>'
+    });
+
+    // --- JavaScript for Variant Selection & Quantity Display ---
+    const variantRadios = document.querySelectorAll('input[name="variant_selector"]');
+    const quantityDisplayArea = document.getElementById('quantity-display-area');
+
+    function updateQuantity() {
+        if (!quantityDisplayArea) return;
+        const selectedRadio = document.querySelector('input[name="variant_selector"]:checked');
+        
+        if (selectedRadio) {
+            const quantity = selectedRadio.getAttribute('data-quantity');
+            quantityDisplayArea.innerHTML = `{% trans "Available Quantity" %}: <span class="quantity-number">${quantity}</span>`;
+        } else {
+            quantityDisplayArea.style.display = 'none';
+        }
+    }
+
+    variantRadios.forEach(radio => {
+        radio.addEventListener('change', updateQuantity);
+    });
+
+    updateQuantity();
+});
+</script>
+{% endblock extra_js %}

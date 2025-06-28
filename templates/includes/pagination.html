@@ -1,0 +1,28 @@
+{% load static %}
+{% if paginated_list.has_other_pages %}
+    <div class="shop-pagination  text-center">
+        <div class="pagination">
+            <ul>
+                {% if paginated_list.has_previous %}
+                    <li><a href="?page={{ paginated_list.previous_page_number }}"><i class="zmdi zmdi-long-arrow-left"></i></a></li>
+                {% else %}
+                    <li><a href="#"><i class="zmdi zmdi-long-arrow-left text-[#d9d9d9]"></i></a></li>
+                {% endif %}
+                
+                {% for num in paginated_list.paginator.page_range %}
+                    {% if paginated_list.number == num %}
+                        <li><a class="active" href="?page={{ num }}">{{ num }}</a></li>
+                    {% else %}
+                        <li><a href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if paginated_list.has_next %}
+                    <li><a href="?page={{ paginated_list.next_page_number }}"><i class="zmdi zmdi-long-arrow-right"></i></a></li>
+                {% else %}
+                    <li><a href="#"><i class="zmdi zmdi-long-arrow-right text-[#d9d9d9]"></i></a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

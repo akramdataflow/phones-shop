@@ -1,0 +1,130 @@
+{% load static i18n humanize %}
+<div class="col-md-12">
+    <div class="product-option mb-30 clearfix">
+        <!-- Categories start -->
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
+            <button class="option-btn">{% trans "Filter" %}</button>
+            <div class="dropdown-menu dropdown-width">
+                    <form method="GET" action="">
+                    <!-- Widget-Categories start -->
+                    <aside class="widget widget-categories" aria-label="widget-categories">
+                        <div class="widget-title">
+                            <h4>{% trans "Categories" %} & {% trans "Brands" %}</h4>
+                        </div>
+                        <div id="cat-treeview" class="widget-info product-cat boxscrol2" style="overflow: hidden; outline: none;">
+                            <ul class="treeview">
+                                <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>{% trans "Brands" %}</span>
+                                    <ul class="treeview">
+                                        {% for brand in brands %}
+                                        <li style="line-height: 10px;">
+                                            <input type="checkbox" name="brand" value="{{ brand.slug }}" id="brand-{{ brand.slug }}" {% if brand.slug in selected_brands %} checked {% endif %}>
+                                            <label for="brand-{{ brand.slug }}">{{ brand.name }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>          
+                                <li class="expandable"><div class="hitarea expandable-hitarea"></div><span>{% trans "Categories" %}</span>
+                                    <ul class="treeview">
+                                        {% for category in categories %}
+                                        <li style="line-height: 10px;">
+                                            <input type="checkbox" name="category" value="{{ category.slug }}" id="category-{{ category.slug }}" {% if category.slug in selected_categories %} checked {% endif %}>
+                                            <label for="category-{{ category.slug }}">{{ category.name }}</label>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>          
+                            </ul>
+                        </div>
+                    </aside>
+                    <!-- Widget-categories end -->
+                    <button type="submit" class="btn btn-warning btn-sm mx-3">
+                        <i class="zmdi zmdi-filter-list"></i> {% trans "Apply Filters" %}
+                    </button>
+                </form>
+            </div>
+        </div>	
+        <!-- Categories end -->
+        {% comment %}
+        <!-- Price start -->
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
+            <button class="option-btn">
+            Price
+            </button>
+            <div class="dropdown-menu dropdown-width">
+                <!-- Shop-Filter start -->
+                <aside class="widget shop-filter">
+                    <div class="widget-title">
+                        <h4>Price</h4>
+                    </div>
+                    <div class="widget-info">
+                        <div class="price_filter">
+                            <div class="price_slider_amount">
+                                <input type="submit" value="You range :"> 
+                                <input type="text" id="amount" name="price" placeholder="Add Your Price"> 
+                            </div>
+                            <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 0%; width: 48.6667%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 0%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 48.6667%;"></span></div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- Shop-Filter end -->
+            </div>
+        </div>
+        <!--Price end -->
+        <!-- Color start -->
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
+            <button class="option-btn">
+            Color
+            </button>
+            <div class="dropdown-menu dropdown-width">
+                <!-- Widget-Color start -->
+                <aside class="widget widget-color">
+                    <div class="widget-title">
+                        <h4>Color</h4>
+                    </div>
+                    <div class="widget-info color-filter clearfix">
+                        <ul>
+                            <li><a href="#"><span class="color color-1"></span>LightSalmon<span class="count">12</span></a></li>
+                            <li><a href="#"><span class="color color-2"></span>Dark Salmon<span class="count">20</span></a></li>
+                            <li><a href="#"><span class="color color-3"></span>Tomato<span class="count">59</span></a></li>
+                            <li><a class="active" href="#"><span class="color color-4"></span>Deep Sky Blue<span class="count">45</span></a></li>
+                            <li><a href="#"><span class="color color-5"></span>Electric Purple<span class="count">78</span></a></li>
+                            <li><a href="#"><span class="color color-6"></span>Atlantis<span class="count">10</span></a></li>
+                            <li><a href="#"><span class="color color-7"></span>Deep Lilac<span class="count">15</span></a></li>
+                        </ul>
+                    </div>
+                </aside>
+                <!-- Widget-Color end -->
+            </div>
+        </div>
+        <!-- Color end -->
+        <!-- Size start -->
+        <div class="dropdown {% if LANGUAGE_BIDI %}floatright{% else %}floatleft{% endif %}">
+            <button class="option-btn">
+            Size
+            </button>
+            <div class="dropdown-menu dropdown-width">
+                <!-- Widget-Size start -->
+                <aside class="widget widget-size">
+                    <div class="widget-title">
+                        <h4>Size</h4>
+                    </div>
+                    <div class="widget-info size-filter clearfix">
+                        <ul>
+                            <li><a href="#">M</a></li>
+                            <li><a class="active" href="#">S</a></li>
+                            <li><a href="#">L</a></li>
+                            <li><a href="#">SL</a></li>
+                            <li><a href="#">XL</a></li>
+                        </ul>
+                    </div>
+                </aside>
+                <!-- Widget-Size end -->
+            </div>
+        </div>	
+        <!-- Size end -->
+        {% endcomment %}
+        <div class="showing text-end">
+            <p class="mb-0 d-none d-md-block">{{ product_count|intcomma }} {% trans "products found" %}</p>
+        </div>
+    </div>						
+</div>

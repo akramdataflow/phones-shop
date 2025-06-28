@@ -1,0 +1,98 @@
+{% load static i18n %}
+<footer>
+    <div class="footer-area footer-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-footer">
+                        <h3 class="footer-title  title-border">{% trans "Contact" %}</h3>
+                        <ul class="footer-contact">
+                            <li onclick="window.open('https://www.google.com/maps/search/?api=1&query=33.3279917,44.4575916', '_blank');"
+                                style="cursor: pointer;background: none; border: none; padding: 0;">
+                                <span>{% trans "Address" %} :</span>
+                                {%if LANGUAGE_CODE == 'en' %}
+                                8FH5+52W, Baghdad, Baghdad Governorate, Iraq
+                                {% else %}
+                                بغداد زيونة شارع الربيعي بناية العربية مجاور بناية دولي<br>العراق، بغداد
+                                {% endif %}
+                            </li>
+                            <li><span>{% trans "Retail Phone" %} :</span>07838707788</li>
+                            <li><span>{% trans "Wholesale Phone" %} :</span>07722228068</li>
+                            <li><span>{% trans "Email" %} :</span>info@easr-alnaafidhih.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="single-footer">
+                        <h3 class="footer-title  title-border">{% trans "Categories" %}</h3>
+                        <ul class="footer-menu">
+                            {% for category in top_categories|slice:":5" %}
+                            <li>
+                                <a href="#">
+                                    <i class="zmdi zmdi-dot-circle"></i>
+                                    {# MODIFICATION 1: Show Arabic category name if available #}
+                                    {% if LANGUAGE_CODE == 'ar' and category.name_ar %}
+                                        {{ category.name_ar }}
+                                    {% else %}
+                                        {{ category.name }}
+                                    {% endif %}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="single-footer">
+                        <h3 class="footer-title  title-border">{% trans "Brands" %}</h3>
+                        <ul class="footer-menu">
+                            {% for brand in top_brands|slice:":5" %}
+                            <li>
+                                <a href="#">
+                                    <i class="zmdi zmdi-dot-circle"></i>
+                                    {# MODIFICATION 2: Show Arabic brand name if available #}
+                                    {% if LANGUAGE_CODE == 'ar' and brand.name_ar %}
+                                        {{ brand.name_ar }}
+                                    {% else %}
+                                        {{ brand.name }}
+                                    {% endif %}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-footer newsletter-item">
+                        <h3 class="footer-title  title-border">{% trans "Stay Updated" %}</h3>
+                        <div class="footer-subscribe">
+                            <form action="#">
+                                <input type="text" name="email" placeholder="Email Address..." />
+                                <button class="button-one submit-btn-4" type="submit" data-text="Subscribe">{% trans "Subscribe" %}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area copyright-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="copyright">
+                        <p class="mb-0">© <a href="#" target="_blank">{% trans "Phone Shop" %} </a> 2025. {% trans "All rights reserved" %}.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="payment text-md-end">
+                        <a href="#"><img src="{% static 'assets/img/payment/1.png' %}" alt="" /></a>
+                        <a href="#"><img src="{% static 'assets/img/payment/2.png' %}" alt="" /></a>
+                        <a href="#"><img src="{% static 'assets/img/payment/3.png' %}" alt="" /></a>
+                        <a href="#"><img src="{% static 'assets/img/payment/4.png' %}" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
